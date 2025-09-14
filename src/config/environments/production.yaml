@@ -1,0 +1,180 @@
+# Phase 6: Production Environment Configuration
+# Production-specific settings for maximum performance and reliability
+
+environment: "production"
+debug_mode: false
+
+# Database Configuration (Production)
+database:
+  ssl_mode: "require"
+  connection_timeout: 10
+  max_connections: 50
+
+# MLflow Configuration (Production)
+mlflow:
+  experiment_name: "hackathon_forecast_production"
+  enable_system_metrics: true
+  auto_log_models: true
+
+# Logging Configuration (Production)
+logging:
+  level: "INFO"
+  enable_file_logging: true
+  enable_structured_logging: true
+  max_file_size_mb: 500
+  backup_count: 10
+
+# Security Configuration (Production)
+security:
+  enable_api_key_auth: true
+  enable_rate_limiting: true
+  rate_limit_per_minute: 100
+  enable_cors: true
+  allowed_origins:
+    - "https://forecast.company.com"
+    - "https://dashboard.company.com"
+
+# Data Configuration (Production)
+data:
+  chunk_size: 200000    # Larger chunks for production
+  max_memory_usage_gb: 16.0
+  cache_enabled: true
+
+# Model Configuration (Production)
+models:
+  auto_hyperparameter_tuning: true
+  max_training_time: 7200  # 2 hours for production
+  cross_validation_folds: 8  # More thorough validation
+
+  lightgbm_config:
+    n_estimators: 2000    # More estimators for production
+    learning_rate: 0.05   # Lower learning rate for stability
+    early_stopping_rounds: 100
+
+# Monitoring Configuration (Production)
+monitoring:
+  enable_monitoring: true
+  metrics_collection_interval: 30
+  alert_thresholds:
+    wmape_threshold: 0.15     # Stricter threshold
+    memory_usage_threshold: 0.85
+    error_rate_threshold: 0.01
+    response_time_threshold: 10.0
+  enable_email_alerts: true
+  enable_slack_alerts: true
+
+# Feature Flags (Production)
+feature_flags:
+  enable_phase5_models: true
+  enable_bayesian_calibration: true
+  enable_business_rules: true
+  enable_real_time_inference: true
+  enable_model_explanability: true
+  enable_drift_detection: true
+  enable_advanced_ensemble: true
+  enable_lstm_models: true
+  enable_arima_models: true
+
+# Validation Configuration (Production)
+validation:
+  enable_cross_validation: true
+  cv_strategy: "walk_forward"
+  n_splits: 8
+  test_size: 0.15
+  enable_walk_forward: true
+  window_size: 365  # 1 year window
+  step_size: 7      # Weekly steps
+
+# Performance Configuration (Production)
+performance:
+  enable_parallel_processing: true
+  max_workers: 8
+  memory_limit_gb: 24.0
+  enable_gpu: true
+  gpu_memory_fraction: 0.9
+
+# Pipeline Configuration (Production)
+pipeline:
+  enable_rollback: true
+  enable_checkpoints: true
+  max_pipeline_duration: 14400  # 4 hours
+  checkpoint_frequency: 5
+
+# Business Rules Configuration (Production)
+business_rules:
+  enable_non_negativity: true
+  enable_seasonality_constraints: true
+  enable_growth_limits: true
+  max_growth_rate: 1.5      # More conservative in production
+  min_forecast_value: 0.1   # Minimum viable forecast
+  enable_inventory_constraints: true
+  enable_supply_chain_constraints: true
+
+# Alerting Configuration (Production)
+alerting:
+  enable_performance_alerts: true
+  enable_accuracy_alerts: true
+  enable_system_health_alerts: true
+
+  alert_channels:
+    email:
+      enabled: true
+      recipients:
+        - "ops-team@company.com"
+        - "data-team@company.com"
+    slack:
+      enabled: true
+      webhook_url: "${SLACK_WEBHOOK_URL}"
+      channel: "#forecast-alerts"
+
+  alert_rules:
+    wmape_degradation:
+      threshold: 0.05  # 5% degradation
+      window_minutes: 60
+      severity: "high"
+
+    memory_usage:
+      threshold: 0.90
+      window_minutes: 5
+      severity: "medium"
+
+    error_rate:
+      threshold: 0.02  # 2%
+      window_minutes: 15
+      severity: "high"
+
+# Backup and Recovery (Production)
+backup:
+  enable_model_backup: true
+  backup_frequency: "daily"
+  backup_retention_days: 30
+  enable_config_backup: true
+  enable_data_backup: false  # Too large for regular backup
+
+# Scaling Configuration (Production)
+scaling:
+  enable_auto_scaling: true
+  min_instances: 2
+  max_instances: 10
+  target_cpu_utilization: 70
+  target_memory_utilization: 80
+
+# Health Check Configuration (Production)
+health_check:
+  enable_health_checks: true
+  check_interval_seconds: 30
+  timeout_seconds: 10
+
+  checks:
+    - name: "database_connection"
+      enabled: true
+      critical: true
+    - name: "mlflow_connection"
+      enabled: true
+      critical: false
+    - name: "model_loading"
+      enabled: true
+      critical: true
+    - name: "memory_usage"
+      enabled: true
+      critical: false

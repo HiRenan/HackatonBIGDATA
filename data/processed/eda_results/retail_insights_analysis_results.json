@@ -1,0 +1,2125 @@
+{
+  "velocity_analysis": [
+    {
+      "total_qty": 2.0,
+      "avg_qty": 1.0,
+      "std_qty": 0.0,
+      "frequency": 2,
+      "total_revenue": 187.0,
+      "cv_demand": 0.0,
+      "revenue_rank": 0.6449086161879896,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 1418.75,
+      "avg_qty": 3.4100000858306885,
+      "std_qty": 3.759999990463257,
+      "frequency": 416,
+      "total_revenue": 24304.5,
+      "cv_demand": 1.1026393175125122,
+      "revenue_rank": 0.035393095445314764,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 2.0,
+      "avg_qty": 1.0,
+      "std_qty": 0.0,
+      "frequency": 2,
+      "total_revenue": 43.49,
+      "cv_demand": 0.0,
+      "revenue_rank": 0.8955613577023499,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 12.0,
+      "avg_qty": 2.4000000953674316,
+      "std_qty": 1.340000033378601,
+      "frequency": 5,
+      "total_revenue": 299.93,
+      "cv_demand": 0.5583333373069763,
+      "revenue_rank": 0.5407600812300551,
+      "abc_class": "C",
+      "xyz_class": "Y",
+      "velocity_segment": "CY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 2.0,
+      "avg_qty": 1.0,
+      "std_qty": 0.0,
+      "frequency": 2,
+      "total_revenue": 300.0,
+      "cv_demand": 0.0,
+      "revenue_rank": 0.5403249202204816,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 14.0,
+      "avg_qty": 7.0,
+      "std_qty": 9.899999618530273,
+      "frequency": 2,
+      "total_revenue": 563.61,
+      "cv_demand": 1.414285659790039,
+      "revenue_rank": 0.4134029590948651,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 60.0,
+      "avg_qty": 30.0,
+      "std_qty": 42.43000030517578,
+      "frequency": 2,
+      "total_revenue": 472.49,
+      "cv_demand": 1.4143333435058594,
+      "revenue_rank": 0.44357412242529737,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 860.6699829101562,
+      "avg_qty": 4.239999771118164,
+      "std_qty": 13.359999656677246,
+      "frequency": 203,
+      "total_revenue": 44010.33,
+      "cv_demand": 3.1509435176849365,
+      "revenue_rank": 0.021467943138961415,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 588.0,
+      "avg_qty": 147.0,
+      "std_qty": 238.27000427246094,
+      "frequency": 4,
+      "total_revenue": 5961.29,
+      "cv_demand": 1.6208844184875488,
+      "revenue_rank": 0.11024078909196403,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 39.0,
+      "avg_qty": 13.0,
+      "std_qty": 19.969999313354492,
+      "frequency": 3,
+      "total_revenue": 332.92,
+      "cv_demand": 1.536153793334961,
+      "revenue_rank": 0.5181317087322309,
+      "abc_class": "C",
+      "xyz_class": "Z",
+      "velocity_segment": "CZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 7443.0,
+      "avg_qty": 4.659999847412109,
+      "std_qty": 5.090000152587891,
+      "frequency": 1596,
+      "total_revenue": 187848.97,
+      "cv_demand": 1.092274785041809,
+      "revenue_rank": 0.0020307513780098638,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 2.0,
+      "avg_qty": 0.5,
+      "std_qty": 1.0,
+      "frequency": 4,
+      "total_revenue": 300.0,
+      "cv_demand": 2.0,
+      "revenue_rank": 0.5403249202204816,
+      "abc_class": "C",
+      "xyz_class": "Z",
+      "velocity_segment": "CZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 84.0,
+      "avg_qty": 12.0,
+      "std_qty": 0.0,
+      "frequency": 7,
+      "total_revenue": 263.75,
+      "cv_demand": 0.0,
+      "revenue_rank": 0.5680301711633304,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 5.0,
+      "avg_qty": 1.0,
+      "std_qty": 0.0,
+      "frequency": 5,
+      "total_revenue": 172.8,
+      "cv_demand": 0.0,
+      "revenue_rank": 0.6643458079489412,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 51.0,
+      "avg_qty": 17.0,
+      "std_qty": 17.059999465942383,
+      "frequency": 3,
+      "total_revenue": 302.04,
+      "cv_demand": 1.00352942943573,
+      "revenue_rank": 0.5381491151726139,
+      "abc_class": "C",
+      "xyz_class": "Z",
+      "velocity_segment": "CZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 33.0,
+      "avg_qty": 1.1799999475479126,
+      "std_qty": 0.38999998569488525,
+      "frequency": 28,
+      "total_revenue": 425.04,
+      "cv_demand": 0.3305084705352783,
+      "revenue_rank": 0.46678270960255297,
+      "abc_class": "B",
+      "xyz_class": "X",
+      "velocity_segment": "BX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 8.0,
+      "avg_qty": 2.6700000762939453,
+      "std_qty": 1.149999976158142,
+      "frequency": 3,
+      "total_revenue": 217.32,
+      "cv_demand": 0.4307115972042084,
+      "revenue_rank": 0.6098056280823905,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 34.91999816894531,
+      "avg_qty": 1.590000033378601,
+      "std_qty": 1.9700000286102295,
+      "frequency": 22,
+      "total_revenue": 687.83,
+      "cv_demand": 1.2389936447143555,
+      "revenue_rank": 0.38062082970699157,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 10.0,
+      "avg_qty": 5.0,
+      "std_qty": 2.8299999237060547,
+      "frequency": 2,
+      "total_revenue": 356.4,
+      "cv_demand": 0.5659999847412109,
+      "revenue_rank": 0.49985494633014216,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 16.0,
+      "avg_qty": 3.200000047683716,
+      "std_qty": 3.3499999046325684,
+      "frequency": 5,
+      "total_revenue": 834.84,
+      "cv_demand": 1.046875,
+      "revenue_rank": 0.34348709022338264,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 7.0,
+      "avg_qty": 2.3299999237060547,
+      "std_qty": 0.5799999833106995,
+      "frequency": 3,
+      "total_revenue": 162.44,
+      "cv_demand": 0.248927041888237,
+      "revenue_rank": 0.6771105308964317,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 94.0,
+      "avg_qty": 18.799999237060547,
+      "std_qty": 15.970000267028809,
+      "frequency": 5,
+      "total_revenue": 233.0,
+      "cv_demand": 0.8494681119918823,
+      "revenue_rank": 0.5935596170583116,
+      "abc_class": "C",
+      "xyz_class": "Y",
+      "velocity_segment": "CY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 22.0,
+      "avg_qty": 1.0499999523162842,
+      "std_qty": 0.5899999737739563,
+      "frequency": 21,
+      "total_revenue": 622.65,
+      "cv_demand": 0.561904788017273,
+      "revenue_rank": 0.3957064113722077,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 233.25,
+      "avg_qty": 1.3300000429153442,
+      "std_qty": 0.8899999856948853,
+      "frequency": 176,
+      "total_revenue": 7429.29,
+      "cv_demand": 0.6691728830337524,
+      "revenue_rank": 0.09544531476646359,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 334.0,
+      "avg_qty": 2.069999933242798,
+      "std_qty": 1.7699999809265137,
+      "frequency": 161,
+      "total_revenue": 3220.54,
+      "cv_demand": 0.8550724983215332,
+      "revenue_rank": 0.16362053959965187,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 21.0,
+      "avg_qty": 2.3299999237060547,
+      "std_qty": 2.9600000381469727,
+      "frequency": 9,
+      "total_revenue": 657.72,
+      "cv_demand": 1.2703863382339478,
+      "revenue_rank": 0.38787351319988395,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 165.5,
+      "avg_qty": 1.100000023841858,
+      "std_qty": 0.5600000023841858,
+      "frequency": 150,
+      "total_revenue": 6316.49,
+      "cv_demand": 0.5090909004211426,
+      "revenue_rank": 0.1061792863359443,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 451.0,
+      "avg_qty": 4.699999809265137,
+      "std_qty": 3.559999942779541,
+      "frequency": 96,
+      "total_revenue": 8378.89,
+      "cv_demand": 0.757446825504303,
+      "revenue_rank": 0.08732230925442414,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 195.0,
+      "avg_qty": 3.9000000953674316,
+      "std_qty": 4.510000228881836,
+      "frequency": 50,
+      "total_revenue": 3620.31,
+      "cv_demand": 1.1564103364944458,
+      "revenue_rank": 0.1496953872932985,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 576.0,
+      "avg_qty": 52.36000061035156,
+      "std_qty": 128.00999450683594,
+      "frequency": 11,
+      "total_revenue": 25020.41,
+      "cv_demand": 2.444805145263672,
+      "revenue_rank": 0.034522773426167684,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 87.0,
+      "avg_qty": 9.670000076293945,
+      "std_qty": 14.260000228881836,
+      "frequency": 9,
+      "total_revenue": 909.24,
+      "cv_demand": 1.4746639728546143,
+      "revenue_rank": 0.33130258195532347,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 4.0,
+      "avg_qty": 2.0,
+      "std_qty": 2.8299999237060547,
+      "frequency": 2,
+      "total_revenue": 20.75,
+      "cv_demand": 1.4149999618530273,
+      "revenue_rank": 0.9509718595880475,
+      "abc_class": "C",
+      "xyz_class": "Z",
+      "velocity_segment": "CZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 48.0,
+      "avg_qty": 9.600000381469727,
+      "std_qty": 5.369999885559082,
+      "frequency": 5,
+      "total_revenue": 150.71,
+      "cv_demand": 0.559374988079071,
+      "revenue_rank": 0.6962576153176675,
+      "abc_class": "C",
+      "xyz_class": "Y",
+      "velocity_segment": "CY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 4377.0,
+      "avg_qty": 76.79000091552734,
+      "std_qty": 109.12000274658203,
+      "frequency": 57,
+      "total_revenue": 34702.1,
+      "cv_demand": 1.421018362045288,
+      "revenue_rank": 0.025819553234696837,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 24.0,
+      "avg_qty": 12.0,
+      "std_qty": 8.489999771118164,
+      "frequency": 2,
+      "total_revenue": 252.0,
+      "cv_demand": 0.7074999809265137,
+      "revenue_rank": 0.577893820713664,
+      "abc_class": "C",
+      "xyz_class": "Y",
+      "velocity_segment": "CY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 62.0,
+      "avg_qty": 1.2699999809265137,
+      "std_qty": 0.5699999928474426,
+      "frequency": 49,
+      "total_revenue": 2019.51,
+      "cv_demand": 0.4488188922405243,
+      "revenue_rank": 0.21642007542790834,
+      "abc_class": "B",
+      "xyz_class": "X",
+      "velocity_segment": "BX",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 12.0,
+      "avg_qty": 1.3300000429153442,
+      "std_qty": 0.7099999785423279,
+      "frequency": 9,
+      "total_revenue": 458.13,
+      "cv_demand": 0.5338345766067505,
+      "revenue_rank": 0.4506817522483319,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 3.0,
+      "avg_qty": 1.0,
+      "std_qty": 0.0,
+      "frequency": 3,
+      "total_revenue": 76.5,
+      "cv_demand": 0.0,
+      "revenue_rank": 0.8230345227734261,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 93.0,
+      "avg_qty": 18.600000381469727,
+      "std_qty": 16.760000228881836,
+      "frequency": 5,
+      "total_revenue": 1416.16,
+      "cv_demand": 0.9010752439498901,
+      "revenue_rank": 0.26718885987815494,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 2695.0,
+      "avg_qty": 10.90999984741211,
+      "std_qty": 14.010000228881836,
+      "frequency": 247,
+      "total_revenue": 36043.66,
+      "cv_demand": 1.2841429710388184,
+      "revenue_rank": 0.024369016536118365,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 276.0,
+      "avg_qty": 23.0,
+      "std_qty": 20.8799991607666,
+      "frequency": 12,
+      "total_revenue": 4516.92,
+      "cv_demand": 0.9078260660171509,
+      "revenue_rank": 0.13083841021177836,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 181.0,
+      "avg_qty": 60.33000183105469,
+      "std_qty": 73.56999969482422,
+      "frequency": 3,
+      "total_revenue": 2080.98,
+      "cv_demand": 1.2194596529006958,
+      "revenue_rank": 0.21119814331302583,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 69.0,
+      "avg_qty": 23.0,
+      "std_qty": 32.08000183105469,
+      "frequency": 3,
+      "total_revenue": 2042.53,
+      "cv_demand": 1.3947826623916626,
+      "revenue_rank": 0.21409921671018275,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 137.0,
+      "avg_qty": 1.7799999713897705,
+      "std_qty": 2.609999895095825,
+      "frequency": 77,
+      "total_revenue": 3404.29,
+      "cv_demand": 1.466292142868042,
+      "revenue_rank": 0.1566579634464752,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 44.0,
+      "avg_qty": 11.0,
+      "std_qty": 8.25,
+      "frequency": 4,
+      "total_revenue": 1409.43,
+      "cv_demand": 0.75,
+      "revenue_rank": 0.2692196112561648,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 6366.9599609375,
+      "avg_qty": 6.53000020980835,
+      "std_qty": 7.03000020980835,
+      "frequency": 975,
+      "total_revenue": 134838.76,
+      "cv_demand": 1.076569676399231,
+      "revenue_rank": 0.0040615027560197275,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 694.5,
+      "avg_qty": 2.8499999046325684,
+      "std_qty": 3.5299999713897705,
+      "frequency": 244,
+      "total_revenue": 21331.9,
+      "cv_demand": 1.2385965585708618,
+      "revenue_rank": 0.042065564258775744,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 24.0,
+      "avg_qty": 12.0,
+      "std_qty": 0.0,
+      "frequency": 2,
+      "total_revenue": 306.3,
+      "cv_demand": 0.0,
+      "revenue_rank": 0.5355381491151726,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 175.0,
+      "avg_qty": 21.8799991607666,
+      "std_qty": 16.81999969482422,
+      "frequency": 8,
+      "total_revenue": 1730.4,
+      "cv_demand": 0.7687385678291321,
+      "revenue_rank": 0.23382651581085,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 47.0,
+      "avg_qty": 5.869999885559082,
+      "std_qty": 4.320000171661377,
+      "frequency": 8,
+      "total_revenue": 667.12,
+      "cv_demand": 0.7359455227851868,
+      "revenue_rank": 0.3855526544821584,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 29.0,
+      "avg_qty": 1.2100000381469727,
+      "std_qty": 0.6600000262260437,
+      "frequency": 24,
+      "total_revenue": 931.32,
+      "cv_demand": 0.5454545617103577,
+      "revenue_rank": 0.3275311865390194,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 12.0,
+      "avg_qty": 0.9200000166893005,
+      "std_qty": 0.2800000011920929,
+      "frequency": 13,
+      "total_revenue": 329.04,
+      "cv_demand": 0.30434781312942505,
+      "revenue_rank": 0.5204525674499565,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 108.0,
+      "avg_qty": 1.590000033378601,
+      "std_qty": 2.049999952316284,
+      "frequency": 68,
+      "total_revenue": 3458.19,
+      "cv_demand": 1.2893080711364746,
+      "revenue_rank": 0.1554975340876124,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 85.0,
+      "avg_qty": 2.5,
+      "std_qty": 4.019999980926514,
+      "frequency": 34,
+      "total_revenue": 1486.85,
+      "cv_demand": 1.6080000400543213,
+      "revenue_rank": 0.25935596170583114,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 55.0,
+      "avg_qty": 1.2799999713897705,
+      "std_qty": 0.550000011920929,
+      "frequency": 43,
+      "total_revenue": 703.87,
+      "cv_demand": 0.4296875298023224,
+      "revenue_rank": 0.37481868291267767,
+      "abc_class": "B",
+      "xyz_class": "X",
+      "velocity_segment": "BX",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 3030.0,
+      "avg_qty": 43.90999984741211,
+      "std_qty": 36.439998626708984,
+      "frequency": 69,
+      "total_revenue": 76662.36,
+      "cv_demand": 0.8298792839050293,
+      "revenue_rank": 0.011024078909196402,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 80.0,
+      "avg_qty": 2.109999895095825,
+      "std_qty": 2.130000114440918,
+      "frequency": 38,
+      "total_revenue": 1681.29,
+      "cv_demand": 1.0094788074493408,
+      "revenue_rank": 0.23904844792573252,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 18.0,
+      "avg_qty": 9.0,
+      "std_qty": 4.239999771118164,
+      "frequency": 2,
+      "total_revenue": 285.24,
+      "cv_demand": 0.47111108899116516,
+      "revenue_rank": 0.552364374818683,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 39.0,
+      "avg_qty": 1.7699999809265137,
+      "std_qty": 2.5799999237060547,
+      "frequency": 22,
+      "total_revenue": 1411.68,
+      "cv_demand": 1.4576270580291748,
+      "revenue_rank": 0.268059181897302,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 8.0,
+      "avg_qty": 1.3300000429153442,
+      "std_qty": 0.8199999928474426,
+      "frequency": 6,
+      "total_revenue": 584.62,
+      "cv_demand": 0.61654132604599,
+      "revenue_rank": 0.40644038294168844,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 140.0,
+      "avg_qty": 1.9700000286102295,
+      "std_qty": 1.8899999856948853,
+      "frequency": 71,
+      "total_revenue": 3523.87,
+      "cv_demand": 0.9593908190727234,
+      "revenue_rank": 0.15259646069045546,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 3090.0,
+      "avg_qty": 618.0,
+      "std_qty": 1114.97998046875,
+      "frequency": 5,
+      "total_revenue": 5893.2,
+      "cv_demand": 1.804174780845642,
+      "revenue_rank": 0.1111111111111111,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 188.0,
+      "avg_qty": 31.329999923706055,
+      "std_qty": 27.020000457763672,
+      "frequency": 6,
+      "total_revenue": 1613.88,
+      "cv_demand": 0.8624321818351746,
+      "revenue_rank": 0.24427038004061502,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 3.0,
+      "avg_qty": 1.5,
+      "std_qty": 2.119999885559082,
+      "frequency": 2,
+      "total_revenue": 67.2,
+      "cv_demand": 1.4133332967758179,
+      "revenue_rank": 0.845082680591819,
+      "abc_class": "C",
+      "xyz_class": "Z",
+      "velocity_segment": "CZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 7.0,
+      "avg_qty": 1.399999976158142,
+      "std_qty": 0.550000011920929,
+      "frequency": 5,
+      "total_revenue": 527.37,
+      "cv_demand": 0.392857164144516,
+      "revenue_rank": 0.42587757470264,
+      "abc_class": "B",
+      "xyz_class": "X",
+      "velocity_segment": "BX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 86.0,
+      "avg_qty": 5.059999942779541,
+      "std_qty": 14.319999694824219,
+      "frequency": 17,
+      "total_revenue": 1760.85,
+      "cv_demand": 2.8300395011901855,
+      "revenue_rank": 0.23208587177255585,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 144.0,
+      "avg_qty": 24.0,
+      "std_qty": 30.1200008392334,
+      "frequency": 6,
+      "total_revenue": 1464.55,
+      "cv_demand": 1.2549999952316284,
+      "revenue_rank": 0.26109660574412535,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 3.0,
+      "avg_qty": 1.5,
+      "std_qty": 0.7099999785423279,
+      "frequency": 2,
+      "total_revenue": 64.5,
+      "cv_demand": 0.47333332896232605,
+      "revenue_rank": 0.8503046127067014,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 6.0,
+      "avg_qty": 1.2000000476837158,
+      "std_qty": 0.44999998807907104,
+      "frequency": 5,
+      "total_revenue": 78.03,
+      "cv_demand": 0.3749999701976776,
+      "revenue_rank": 0.821293878735132,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 427.75,
+      "avg_qty": 1.5299999713897705,
+      "std_qty": 0.8199999928474426,
+      "frequency": 280,
+      "total_revenue": 11244.35,
+      "cv_demand": 0.5359477400779724,
+      "revenue_rank": 0.07165651290977662,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 968.5,
+      "avg_qty": 2.319999933242798,
+      "std_qty": 1.9500000476837158,
+      "frequency": 418,
+      "total_revenue": 21995.25,
+      "cv_demand": 0.8405172824859619,
+      "revenue_rank": 0.040615027560197275,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 5.0,
+      "avg_qty": 2.5,
+      "std_qty": 0.7099999785423279,
+      "frequency": 2,
+      "total_revenue": 20.71,
+      "cv_demand": 0.2839999794960022,
+      "revenue_rank": 0.951552074267479,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 120.0,
+      "avg_qty": 60.0,
+      "std_qty": 59.400001525878906,
+      "frequency": 2,
+      "total_revenue": 1777.0,
+      "cv_demand": 0.9900000095367432,
+      "revenue_rank": 0.23063533507397738,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 25.0,
+      "avg_qty": 1.9199999570846558,
+      "std_qty": 0.949999988079071,
+      "frequency": 13,
+      "total_revenue": 3142.25,
+      "cv_demand": 0.4947916567325592,
+      "revenue_rank": 0.16449086161879894,
+      "abc_class": "A",
+      "xyz_class": "X",
+      "velocity_segment": "AX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 949.0,
+      "avg_qty": 73.0,
+      "std_qty": 54.15999984741211,
+      "frequency": 13,
+      "total_revenue": 7141.36,
+      "cv_demand": 0.7419177889823914,
+      "revenue_rank": 0.09892660284305192,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 396.0,
+      "avg_qty": 66.0,
+      "std_qty": 23.700000762939453,
+      "frequency": 6,
+      "total_revenue": 2725.2,
+      "cv_demand": 0.3590909242630005,
+      "revenue_rank": 0.178706121264868,
+      "abc_class": "A",
+      "xyz_class": "X",
+      "velocity_segment": "AX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 333.0,
+      "avg_qty": 2.109999895095825,
+      "std_qty": 1.5099999904632568,
+      "frequency": 158,
+      "total_revenue": 3242.25,
+      "cv_demand": 0.7156398296356201,
+      "revenue_rank": 0.16275021758050479,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "velocity_segment": "AY",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 2627.0,
+      "avg_qty": 3.8299999237060547,
+      "std_qty": 4.809999942779541,
+      "frequency": 686,
+      "total_revenue": 55668.51,
+      "cv_demand": 1.2558746337890625,
+      "revenue_rank": 0.016536118363794605,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 19.0,
+      "avg_qty": 1.2699999809265137,
+      "std_qty": 0.800000011920929,
+      "frequency": 15,
+      "total_revenue": 625.48,
+      "cv_demand": 0.6299212574958801,
+      "revenue_rank": 0.39483608935306064,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 580.0,
+      "avg_qty": 17.579999923706055,
+      "std_qty": 46.83000183105469,
+      "frequency": 33,
+      "total_revenue": 12898.15,
+      "cv_demand": 2.663822650909424,
+      "revenue_rank": 0.0615027560197273,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 77.0,
+      "avg_qty": 12.829999923706055,
+      "std_qty": 21.329999923706055,
+      "frequency": 6,
+      "total_revenue": 2457.6,
+      "cv_demand": 1.662509799003601,
+      "revenue_rank": 0.1900203075137801,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 63.75,
+      "avg_qty": 1.2300000190734863,
+      "std_qty": 0.7400000095367432,
+      "frequency": 52,
+      "total_revenue": 2025.2,
+      "cv_demand": 0.6016260385513306,
+      "revenue_rank": 0.21525964606904555,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 33.0,
+      "avg_qty": 1.2200000286102295,
+      "std_qty": 0.5799999833106995,
+      "frequency": 27,
+      "total_revenue": 1179.94,
+      "cv_demand": 0.4754098057746887,
+      "revenue_rank": 0.2898172323759791,
+      "abc_class": "B",
+      "xyz_class": "X",
+      "velocity_segment": "BX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 18.0,
+      "avg_qty": 2.569999933242798,
+      "std_qty": 2.569999933242798,
+      "frequency": 7,
+      "total_revenue": 144.81,
+      "cv_demand": 1.0,
+      "revenue_rank": 0.7040905134899913,
+      "abc_class": "C",
+      "xyz_class": "Y",
+      "velocity_segment": "CY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 1681.0799560546875,
+      "avg_qty": 1.7799999713897705,
+      "std_qty": 2.069999933242798,
+      "frequency": 944,
+      "total_revenue": 45872.39,
+      "cv_demand": 1.1629213094711304,
+      "revenue_rank": 0.020887728459530026,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Fast"
+    },
+    {
+      "total_qty": 18.0,
+      "avg_qty": 6.0,
+      "std_qty": 0.0,
+      "frequency": 3,
+      "total_revenue": 216.45,
+      "cv_demand": 0.0,
+      "revenue_rank": 0.611256164780969,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": -6.0,
+      "avg_qty": -3.0,
+      "std_qty": 0.0,
+      "frequency": 2,
+      "total_revenue": -163.92,
+      "cv_demand": -0.0,
+      "revenue_rank": 0.9973890339425587,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 1577.0,
+      "avg_qty": 60.650001525878906,
+      "std_qty": 121.9000015258789,
+      "frequency": 26,
+      "total_revenue": 21969.7,
+      "cv_demand": 2.009892702102661,
+      "revenue_rank": 0.040905134899912966,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 421.0,
+      "avg_qty": 52.619998931884766,
+      "std_qty": 115.73999786376953,
+      "frequency": 8,
+      "total_revenue": 3443.44,
+      "cv_demand": 2.1995439529418945,
+      "revenue_rank": 0.15578764142732812,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "velocity_segment": "AZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 15.0,
+      "avg_qty": 5.0,
+      "std_qty": 1.7300000190734863,
+      "frequency": 3,
+      "total_revenue": 379.93,
+      "cv_demand": 0.3460000157356262,
+      "revenue_rank": 0.4841891499854946,
+      "abc_class": "B",
+      "xyz_class": "X",
+      "velocity_segment": "BX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 4.0,
+      "avg_qty": 1.3300000429153442,
+      "std_qty": 0.5799999833106995,
+      "frequency": 3,
+      "total_revenue": 131.68,
+      "cv_demand": 0.4360902011394501,
+      "revenue_rank": 0.7245430809399478,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 6.0,
+      "avg_qty": 1.5,
+      "std_qty": 1.2899999618530273,
+      "frequency": 4,
+      "total_revenue": 486.03,
+      "cv_demand": 0.85999995470047,
+      "revenue_rank": 0.44009283434870905,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 4.0,
+      "avg_qty": 1.0,
+      "std_qty": 0.0,
+      "frequency": 4,
+      "total_revenue": 719.0,
+      "cv_demand": 0.0,
+      "revenue_rank": 0.37133739483608935,
+      "abc_class": "B",
+      "xyz_class": "X",
+      "velocity_segment": "BX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 7.0,
+      "avg_qty": 1.75,
+      "std_qty": 5.25,
+      "frequency": 4,
+      "total_revenue": 123.04,
+      "cv_demand": 3.0,
+      "revenue_rank": 0.7400638236147374,
+      "abc_class": "C",
+      "xyz_class": "Z",
+      "velocity_segment": "CZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 3.0,
+      "avg_qty": 1.5,
+      "std_qty": 0.7099999785423279,
+      "frequency": 2,
+      "total_revenue": 75.0,
+      "cv_demand": 0.47333332896232605,
+      "revenue_rank": 0.8298520452567449,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 56.0,
+      "avg_qty": 11.199999809265137,
+      "std_qty": 11.210000038146973,
+      "frequency": 5,
+      "total_revenue": 963.54,
+      "cv_demand": 1.0008928775787354,
+      "revenue_rank": 0.32085871772555846,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 109.0,
+      "avg_qty": 9.079999923706055,
+      "std_qty": 9.670000076293945,
+      "frequency": 12,
+      "total_revenue": 1068.93,
+      "cv_demand": 1.064978003501892,
+      "revenue_rank": 0.30577313606034234,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "velocity_segment": "BZ",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 16.0,
+      "avg_qty": 1.3300000429153442,
+      "std_qty": 1.0700000524520874,
+      "frequency": 12,
+      "total_revenue": 1935.38,
+      "cv_demand": 0.804511308670044,
+      "revenue_rank": 0.22164200754279084,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "velocity_segment": "BY",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 6.0,
+      "avg_qty": 1.2000000476837158,
+      "std_qty": 0.44999998807907104,
+      "frequency": 5,
+      "total_revenue": 247.62,
+      "cv_demand": 0.3749999701976776,
+      "revenue_rank": 0.5799245720916739,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    },
+    {
+      "total_qty": 2.0,
+      "avg_qty": 1.0,
+      "std_qty": 0.0,
+      "frequency": 2,
+      "total_revenue": 43.2,
+      "cv_demand": 0.0,
+      "revenue_rank": 0.8968668407310705,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "velocity_segment": "CX",
+      "movement_speed": "Slow"
+    }
+  ],
+  "seasonality_analysis": {
+    "weekly_patterns": [
+      {
+        "mean": 4.190000057220459,
+        "std": 10.430000305175781,
+        "cv": 2.489260196685791
+      },
+      {
+        "mean": 3.890000104904175,
+        "std": 8.920000076293945,
+        "cv": 2.2930591106414795
+      },
+      {
+        "mean": 3.859999895095825,
+        "std": 12.510000228881836,
+        "cv": 3.2409327030181885
+      },
+      {
+        "mean": 3.9200000762939453,
+        "std": 9.6899995803833,
+        "cv": 2.4719386100769043
+      },
+      {
+        "mean": 3.7899999618530273,
+        "std": 8.770000457763672,
+        "cv": 2.3139843940734863
+      },
+      {
+        "mean": 3.2799999713897705,
+        "std": 5.03000020980835,
+        "cv": 1.533536672592163
+      },
+      {
+        "mean": 89.75,
+        "std": 245.75,
+        "cv": 2.738161563873291
+      }
+    ],
+    "monthly_patterns": [
+      {
+        "mean": 3.5399999618530273,
+        "std": 6.550000190734863,
+        "cv": 1.8502825498580933
+      },
+      {
+        "mean": 3.809999942779541,
+        "std": 8.180000305175781,
+        "cv": 2.146981716156006
+      },
+      {
+        "mean": 3.75,
+        "std": 8.579999923706055,
+        "cv": 2.2879998683929443
+      },
+      {
+        "mean": 3.609999895095825,
+        "std": 7.730000019073486,
+        "cv": 2.1412742137908936
+      },
+      {
+        "mean": 3.8399999141693115,
+        "std": 9.0600004196167,
+        "cv": 2.359375238418579
+      },
+      {
+        "mean": 3.6600000858306885,
+        "std": 7.739999771118164,
+        "cv": 2.1147539615631104
+      },
+      {
+        "mean": 3.490000009536743,
+        "std": 7.480000019073486,
+        "cv": 2.143266439437866
+      },
+      {
+        "mean": 3.759999990463257,
+        "std": 7.949999809265137,
+        "cv": 2.1143617630004883
+      },
+      {
+        "mean": 51.70000076293945,
+        "std": 188.82000732421875,
+        "cv": 3.652224540710449
+      },
+      {
+        "mean": 4.630000114440918,
+        "std": 12.699999809265137,
+        "cv": 2.742980480194092
+      },
+      {
+        "mean": 4.71999979019165,
+        "std": 11.899999618530273,
+        "cv": 2.521186590194702
+      },
+      {
+        "mean": 4.800000190734863,
+        "std": 18.850000381469727,
+        "cv": 3.9270832538604736
+      }
+    ]
+  },
+  "cross_selling_analysis": [
+    {
+      "product_1": "1915930522577773480",
+      "product_2": "1938760505411922162",
+      "co_occurrence_count": 5,
+      "lift": 11745.35878867676,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "5926490338632154414",
+      "product_2": "9183846828854803378",
+      "co_occurrence_count": 5,
+      "lift": 4580.539152759949,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1564315626210978148",
+      "product_2": "2749706558857279178",
+      "co_occurrence_count": 8,
+      "lift": 4224.018940514945,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "1525672820202310947",
+      "product_2": "2749706558857279178",
+      "co_occurrence_count": 5,
+      "lift": 2821.189120809614,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "8724549927579667984",
+      "product_2": "8728662573224341894",
+      "co_occurrence_count": 7,
+      "lift": 2690.9803921568628,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "4570988632387137438",
+      "product_2": "84167801948104352",
+      "co_occurrence_count": 5,
+      "lift": 1841.1971104231166,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "5085439424202670523",
+      "product_2": "6509066495341489493",
+      "co_occurrence_count": 5,
+      "lift": 1775.2437810945273,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1564315626210978148",
+      "product_2": "78720985238870578",
+      "co_occurrence_count": 5,
+      "lift": 1620.6013261876644,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "2258747115919456585",
+      "product_2": "2332258305086273987",
+      "co_occurrence_count": 5,
+      "lift": 1462.6332185604197,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1657665165780983454",
+      "product_2": "9158358945329890575",
+      "co_occurrence_count": 7,
+      "lift": 1456.4244897959184,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "6416577388566874702",
+      "product_2": "6626264684686873956",
+      "co_occurrence_count": 5,
+      "lift": 1429.3542701490146,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1355221146658254593",
+      "product_2": "2525510189893188235",
+      "co_occurrence_count": 5,
+      "lift": 1292.6532386610636,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "7629138479184041110",
+      "product_2": "9036639434778896273",
+      "co_occurrence_count": 8,
+      "lift": 1261.9770114942528,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "3883382697746128443",
+      "product_2": "802532509492578586",
+      "co_occurrence_count": 7,
+      "lift": 1143.5619448768427,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "3143677808758291483",
+      "product_2": "7029448080469668619",
+      "co_occurrence_count": 8,
+      "lift": 1129.5473251028804,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "78720985238870578",
+      "product_2": "8899583048247637290",
+      "co_occurrence_count": 8,
+      "lift": 1126.0273756459312,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "289143327884191523",
+      "product_2": "500478784353013717",
+      "co_occurrence_count": 7,
+      "lift": 1047.809379981542,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "4913890621258584650",
+      "product_2": "7029448080469668619",
+      "co_occurrence_count": 6,
+      "lift": 1036.5257806826435,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "5085439424202670523",
+      "product_2": "7023744788306377758",
+      "co_occurrence_count": 5,
+      "lift": 1024.1791044776119,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1371936917923350372",
+      "product_2": "5798384915681184478",
+      "co_occurrence_count": 6,
+      "lift": 1003.2539831302719,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "289143327884191523",
+      "product_2": "4462533345900802494",
+      "co_occurrence_count": 5,
+      "lift": 994.1048643227281,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "145852603040678098",
+      "product_2": "8222093130128661995",
+      "co_occurrence_count": 5,
+      "lift": 968.0520889853499,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1120490062981954254",
+      "product_2": "2239307647969388381",
+      "co_occurrence_count": 5,
+      "lift": 962.3085221143472,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1835194265081182189",
+      "product_2": "576514643033029430",
+      "co_occurrence_count": 6,
+      "lift": 951.9114312391623,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "4451855961536069898",
+      "product_2": "8222093130128661995",
+      "co_occurrence_count": 5,
+      "lift": 924.2708387297312,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "200407080435025895",
+      "product_2": "4699960180144559479",
+      "co_occurrence_count": 5,
+      "lift": 917.0024671052632,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "519576013096278235",
+      "product_2": "6416577388566874702",
+      "co_occurrence_count": 6,
+      "lift": 915.5593568251795,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "2239307647969388381",
+      "product_2": "3659960211359544205",
+      "co_occurrence_count": 6,
+      "lift": 903.7332207682567,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "4462533345900802494",
+      "product_2": "4699960180144559479",
+      "co_occurrence_count": 5,
+      "lift": 896.0024106066694,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "576514643033029430",
+      "product_2": "7629138479184041110",
+      "co_occurrence_count": 6,
+      "lift": 871.3650793650794,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "1009179103632945474",
+      "product_2": "4570988632387137438",
+      "co_occurrence_count": 7,
+      "lift": 859.2253181974544,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "7029448080469668619",
+      "product_2": "7816387946549468046",
+      "co_occurrence_count": 8,
+      "lift": 851.2530565992722,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "3018796109558820617",
+      "product_2": "5418855670645487653",
+      "co_occurrence_count": 5,
+      "lift": 832.9225023342669,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "839059468320658528",
+      "product_2": "8899583048247637290",
+      "co_occurrence_count": 9,
+      "lift": 820.1593625498008,
+      "support": 2.522251866466381e-06
+    },
+    {
+      "product_1": "7029448080469668619",
+      "product_2": "9183846828854803378",
+      "co_occurrence_count": 5,
+      "lift": 772.8481698072341,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "2239307647969388381",
+      "product_2": "4353552881410365573",
+      "co_occurrence_count": 10,
+      "lift": 763.0640263461785,
+      "support": 2.8025020738515346e-06
+    },
+    {
+      "product_1": "3894706280449257667",
+      "product_2": "576514643033029430",
+      "co_occurrence_count": 11,
+      "lift": 752.4468982439996,
+      "support": 3.082752281236688e-06
+    },
+    {
+      "product_1": "2014744907596959599",
+      "product_2": "8899583048247637290",
+      "co_occurrence_count": 5,
+      "lift": 748.2155588173621,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1009179103632945474",
+      "product_2": "839059468320658528",
+      "co_occurrence_count": 5,
+      "lift": 747.4945533769063,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "7029448080469668619",
+      "product_2": "8382158958992673929",
+      "co_occurrence_count": 5,
+      "lift": 741.6219811281538,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1260174347806822713",
+      "product_2": "5085439424202670523",
+      "co_occurrence_count": 5,
+      "lift": 731.5565031982942,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "2239307647969388381",
+      "product_2": "4570988632387137438",
+      "co_occurrence_count": 8,
+      "lift": 729.3285641287684,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "4451855961536069898",
+      "product_2": "500478784353013717",
+      "co_occurrence_count": 7,
+      "lift": 721.3562063189511,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "2239307647969388381",
+      "product_2": "7852170368684115755",
+      "co_occurrence_count": 6,
+      "lift": 702.2251377591183,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "289143327884191523",
+      "product_2": "7170592116007465797",
+      "co_occurrence_count": 7,
+      "lift": 670.2898239587805,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "4699960180144559479",
+      "product_2": "6641579232767647477",
+      "co_occurrence_count": 6,
+      "lift": 667.5430281865802,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "1288112997726060694",
+      "product_2": "9036639434778896273",
+      "co_occurrence_count": 8,
+      "lift": 666.8984207083449,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "2258747115919456585",
+      "product_2": "8899583048247637290",
+      "co_occurrence_count": 5,
+      "lift": 664.3035335294337,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "3840201750077926393",
+      "product_2": "8625590539951587748",
+      "co_occurrence_count": 6,
+      "lift": 662.728370221328,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "1253559410644523416",
+      "product_2": "5418855670645487653",
+      "co_occurrence_count": 5,
+      "lift": 660.0517943026266,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1288112997726060694",
+      "product_2": "3883382697746128443",
+      "co_occurrence_count": 6,
+      "lift": 649.479432107754,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "3659960211359544205",
+      "product_2": "8899583048247637290",
+      "co_occurrence_count": 5,
+      "lift": 618.0911138056471,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "7029448080469668619",
+      "product_2": "7871778702535050683",
+      "co_occurrence_count": 11,
+      "lift": 600.4656784004161,
+      "support": 3.082752281236688e-06
+    },
+    {
+      "product_1": "3894706280449257667",
+      "product_2": "9044725212433043997",
+      "co_occurrence_count": 5,
+      "lift": 598.5373054213633,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "4098058333001424920",
+      "product_2": "9044725212433043997",
+      "co_occurrence_count": 5,
+      "lift": 594.2312816413536,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1355221146658254593",
+      "product_2": "7871778702535050683",
+      "co_occurrence_count": 6,
+      "lift": 593.9477334517006,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "4451855961536069898",
+      "product_2": "7029448080469668619",
+      "co_occurrence_count": 8,
+      "lift": 590.3161900035155,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "500478784353013717",
+      "product_2": "9036639434778896273",
+      "co_occurrence_count": 5,
+      "lift": 589.2852424362532,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "4873822145939389210",
+      "product_2": "637448570435263100",
+      "co_occurrence_count": 5,
+      "lift": 586.4957264957264,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1371936917923350372",
+      "product_2": "8899583048247637290",
+      "co_occurrence_count": 9,
+      "lift": 581.5675479898588,
+      "support": 2.522251866466381e-06
+    },
+    {
+      "product_1": "145852603040678098",
+      "product_2": "802532509492578586",
+      "co_occurrence_count": 5,
+      "lift": 576.0800774943493,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "2958115939110601639",
+      "product_2": "8174625658473329985",
+      "co_occurrence_count": 6,
+      "lift": 574.118151832882,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "200407080435025895",
+      "product_2": "7029448080469668619",
+      "co_occurrence_count": 5,
+      "lift": 573.5982510288067,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "4040509988492387426",
+      "product_2": "4451855961536069898",
+      "co_occurrence_count": 7,
+      "lift": 573.1323283082077,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "1152772499033912340",
+      "product_2": "519576013096278235",
+      "co_occurrence_count": 8,
+      "lift": 570.6444906444906,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "1009179103632945474",
+      "product_2": "2239307647969388381",
+      "co_occurrence_count": 5,
+      "lift": 566.0638365378513,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1009179103632945474",
+      "product_2": "6529217055583158447",
+      "co_occurrence_count": 5,
+      "lift": 563.3292286318714,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "4040509988492387426",
+      "product_2": "500478784353013717",
+      "co_occurrence_count": 6,
+      "lift": 561.8390804597701,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "4451855961536069898",
+      "product_2": "8456670153959774587",
+      "co_occurrence_count": 5,
+      "lift": 553.4214281282958,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "289143327884191523",
+      "product_2": "7029448080469668619",
+      "co_occurrence_count": 5,
+      "lift": 535.9166140999068,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "6416577388566874702",
+      "product_2": "6641579232767647477",
+      "co_occurrence_count": 5,
+      "lift": 535.1610774491571,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "145852603040678098",
+      "product_2": "637448570435263100",
+      "co_occurrence_count": 11,
+      "lift": 529.698245614035,
+      "support": 3.082752281236688e-06
+    },
+    {
+      "product_1": "500478784353013717",
+      "product_2": "7170592116007465797",
+      "co_occurrence_count": 7,
+      "lift": 527.7569303583502,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "3516587220187345473",
+      "product_2": "7029448080469668619",
+      "co_occurrence_count": 7,
+      "lift": 524.4326866549088,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "200407080435025895",
+      "product_2": "7170592116007465797",
+      "co_occurrence_count": 5,
+      "lift": 512.4425551470589,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1860061817666925715",
+      "product_2": "7029448080469668619",
+      "co_occurrence_count": 6,
+      "lift": 509.2756725897381,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "2239307647969388381",
+      "product_2": "6529217055583158447",
+      "co_occurrence_count": 6,
+      "lift": 502.07401153792034,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "1029370090212151375",
+      "product_2": "3371701102715312626",
+      "co_occurrence_count": 6,
+      "lift": 493.87404844290654,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "4098058333001424920",
+      "product_2": "7023744788306377758",
+      "co_occurrence_count": 5,
+      "lift": 493.66906474820144,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "3894706280449257667",
+      "product_2": "6641579232767647477",
+      "co_occurrence_count": 8,
+      "lift": 490.1765231128511,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "2014744907596959599",
+      "product_2": "637448570435263100",
+      "co_occurrence_count": 5,
+      "lift": 481.5438596491228,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "819449477271258363",
+      "product_2": "8625590539951587748",
+      "co_occurrence_count": 6,
+      "lift": 480.1399416909621,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "5645002264939911240",
+      "product_2": "8625590539951587748",
+      "co_occurrence_count": 5,
+      "lift": 478.18815331010444,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "1355221146658254593",
+      "product_2": "637448570435263100",
+      "co_occurrence_count": 7,
+      "lift": 477.9502487562189,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "3479075165556992938",
+      "product_2": "4623814317972718932",
+      "co_occurrence_count": 5,
+      "lift": 473.0406193657864,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "4098058333001424920",
+      "product_2": "4570988632387137438",
+      "co_occurrence_count": 7,
+      "lift": 472.88299886406656,
+      "support": 1.961751451696074e-06
+    },
+    {
+      "product_1": "1860061817666925715",
+      "product_2": "4040509988492387426",
+      "co_occurrence_count": 5,
+      "lift": 470.90558766859345,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "8625590539951587748",
+      "product_2": "8728662573224341894",
+      "co_occurrence_count": 6,
+      "lift": 461.3109243697479,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "4040509988492387426",
+      "product_2": "8352471677482341950",
+      "co_occurrence_count": 5,
+      "lift": 455.12104283054003,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "637448570435263100",
+      "product_2": "802532509492578586",
+      "co_occurrence_count": 8,
+      "lift": 449.04703476482615,
+      "support": 2.2420016590812276e-06
+    },
+    {
+      "product_1": "1029370090212151375",
+      "product_2": "839059468320658528",
+      "co_occurrence_count": 10,
+      "lift": 448.4967320261437,
+      "support": 2.8025020738515346e-06
+    },
+    {
+      "product_1": "1260174347806822713",
+      "product_2": "4040509988492387426",
+      "co_occurrence_count": 5,
+      "lift": 447.61904761904765,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "4353552881410365573",
+      "product_2": "6641579232767647477",
+      "co_occurrence_count": 6,
+      "lift": 446.98916424828275,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "4098058333001424920",
+      "product_2": "9036639434778896273",
+      "co_occurrence_count": 6,
+      "lift": 442.59985115355994,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "1029370090212151375",
+      "product_2": "6189453893821323891",
+      "co_occurrence_count": 5,
+      "lift": 437.28431372549016,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "4046308726663975437",
+      "product_2": "637448570435263100",
+      "co_occurrence_count": 6,
+      "lift": 435.6825396825397,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "1152772499033912340",
+      "product_2": "1271951761907094129",
+      "co_occurrence_count": 10,
+      "lift": 427.4057925879788,
+      "support": 2.8025020738515346e-06
+    },
+    {
+      "product_1": "7029448080469668619",
+      "product_2": "9036639434778896273",
+      "co_occurrence_count": 5,
+      "lift": 421.9573340901565,
+      "support": 1.4012510369257673e-06
+    },
+    {
+      "product_1": "145852603040678098",
+      "product_2": "7871778702535050683",
+      "co_occurrence_count": 6,
+      "lift": 418.88945411856776,
+      "support": 1.6815012443109208e-06
+    },
+    {
+      "product_1": "3407816598812292920",
+      "product_2": "8899583048247637290",
+      "co_occurrence_count": 5,
+      "lift": 410.8698155355457,
+      "support": 1.4012510369257673e-06
+    }
+  ],
+  "price_elasticity_analysis": [],
+  "promotion_analysis": {
+    "total_products": 500,
+    "promotion_count": 153,
+    "promotion_rate": 0.306
+  },
+  "executive_summary": {
+    "critical_insights": [
+      "Fast-moving products: 505/2505 (20.2%)",
+      "Cross-selling opportunities: 240 product pairs identified",
+      "Promotion detection: 30.6% of products show promotion patterns"
+    ],
+    "actionable_recommendations": [],
+    "feature_engineering_opportunities": [
+      "Create velocity-based features: ABC/XYZ segments, movement speed indicators",
+      "Develop seasonal features: day-of-week, monthly patterns"
+    ]
+  }
+}

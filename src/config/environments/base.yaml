@@ -1,0 +1,177 @@
+# Phase 6: Base Configuration
+# Common settings across all environments
+
+environment: "development"
+debug_mode: true
+version: "1.0.0"
+
+# Database Configuration
+database:
+  host: "localhost"
+  port: 5432
+  name: "hackathon_forecast"
+  user: "forecast_user"
+  password: "forecast_password"
+  ssl_mode: "prefer"
+  connection_timeout: 30
+  max_connections: 20
+
+# MLflow Configuration
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "hackathon_forecast_2025"
+  artifact_location: "mlruns"
+  registry_uri: null
+  enable_system_metrics: true
+  auto_log_models: true
+
+# Model Configuration
+models:
+  default_model_type: "lightgbm"
+  ensemble_enabled: true
+  auto_hyperparameter_tuning: true
+  max_training_time: 3600
+  cross_validation_folds: 5
+  early_stopping_rounds: 50
+
+  # Model-specific configurations
+  lightgbm_config:
+    n_estimators: 1000
+    learning_rate: 0.1
+    num_leaves: 31
+    feature_fraction: 0.8
+    bagging_fraction: 0.8
+    random_state: 42
+
+  prophet_config:
+    seasonality_mode: "multiplicative"
+    yearly_seasonality: true
+    weekly_seasonality: true
+    daily_seasonality: false
+    interval_width: 0.95
+
+  lstm_config:
+    sequence_length: 30
+    hidden_size: 128
+    num_layers: 2
+    dropout: 0.2
+    learning_rate: 0.001
+
+  arima_config:
+    seasonal_periods: [7, 30]
+    max_p: 3
+    max_d: 2
+    max_q: 3
+    seasonal: true
+
+# Data Configuration
+data:
+  data_path: "data/raw"
+  batch_size: 10000
+  chunk_size: 100000
+  max_memory_usage_gb: 8.0
+  cache_enabled: true
+  validation_split: 0.2
+  max_missing_ratio: 0.5
+  min_data_points: 100
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  enable_file_logging: true
+  log_file_path: "logs/application.log"
+  max_file_size_mb: 100
+  backup_count: 5
+  enable_structured_logging: true
+
+# Monitoring Configuration
+monitoring:
+  enable_monitoring: true
+  metrics_collection_interval: 60
+  alert_thresholds:
+    wmape_threshold: 0.20
+    memory_usage_threshold: 0.80
+    error_rate_threshold: 0.05
+    response_time_threshold: 30.0
+  enable_email_alerts: false
+  slack_webhook_url: null
+
+# Security Configuration
+security:
+  enable_api_key_auth: false
+  api_key_header: "X-API-Key"
+  enable_rate_limiting: false
+  rate_limit_per_minute: 60
+  enable_cors: true
+  allowed_origins:
+    - "http://localhost:3000"
+    - "http://localhost:8080"
+
+# Feature Flags
+feature_flags:
+  enable_phase5_models: true
+  enable_bayesian_calibration: true
+  enable_business_rules: true
+  enable_real_time_inference: false
+  enable_model_explanability: true
+  enable_drift_detection: true
+  enable_advanced_ensemble: true
+  enable_lstm_models: true
+  enable_arima_models: true
+
+# Pipeline Configuration
+pipeline:
+  enable_rollback: true
+  enable_checkpoints: true
+  max_pipeline_duration: 7200  # 2 hours
+  checkpoint_frequency: 10      # Every 10 steps
+
+# Validation Configuration
+validation:
+  enable_cross_validation: true
+  cv_strategy: "time_series_split"
+  n_splits: 5
+  test_size: 0.2
+  gap: 0
+  enable_walk_forward: true
+  window_size: 252
+  step_size: 30
+  forecast_horizon: 30
+
+# Business Rules Configuration
+business_rules:
+  enable_non_negativity: true
+  enable_seasonality_constraints: true
+  enable_growth_limits: true
+  max_growth_rate: 2.0
+  min_forecast_value: 0.0
+  enable_inventory_constraints: true
+
+# Feature Engineering Configuration
+features:
+  temporal_features:
+    enable_lags: true
+    lag_periods: [1, 2, 3, 4, 8, 12]
+    rolling_windows: [4, 8, 12, 26]
+    seasonal_periods: [4, 13, 26, 52]
+
+  aggregation_features:
+    enable_product_agg: true
+    enable_store_agg: true
+    enable_category_agg: true
+    aggregation_windows: [7, 14, 30, 90]
+
+  business_features:
+    enable_lifecycle_features: true
+    enable_complementarity: true
+    enable_cannibalization: true
+    enable_promotion_features: true
+
+# Performance Configuration
+performance:
+  enable_parallel_processing: true
+  max_workers: 4
+  memory_limit_gb: 12.0
+  enable_gpu: false
+  gpu_memory_fraction: 0.8

@@ -1,0 +1,136 @@
+# Phase 6: Testing Environment Configuration
+# Configuration optimized for automated testing
+
+environment: "testing"
+debug_mode: false
+
+# Database Configuration (Testing)
+database:
+  host: "localhost"
+  port: 5433  # Different port for testing
+  name: "hackathon_forecast_test"
+  user: "test_user"
+  password: "test_password"
+  ssl_mode: "disable"
+  connection_timeout: 5
+  max_connections: 5
+
+# MLflow Configuration (Testing)
+mlflow:
+  tracking_uri: "sqlite:///test_mlruns.db"
+  experiment_name: "hackathon_forecast_test"
+  enable_system_metrics: false
+  auto_log_models: false
+
+# Logging Configuration (Testing)
+logging:
+  level: "WARNING"  # Reduce noise in tests
+  enable_file_logging: false
+  enable_structured_logging: false
+
+# Security Configuration (Testing)
+security:
+  enable_api_key_auth: false
+  enable_rate_limiting: false
+  enable_cors: false
+
+# Data Configuration (Testing)
+data:
+  data_path: "tests/data/sample"
+  batch_size: 1000      # Small batches for testing
+  chunk_size: 5000      # Small chunks
+  max_memory_usage_gb: 2.0
+  cache_enabled: false  # Disable caching in tests
+  validation_split: 0.5  # Larger validation for testing
+
+# Model Configuration (Testing)
+models:
+  max_training_time: 60  # 1 minute max
+  auto_hyperparameter_tuning: false
+  cross_validation_folds: 2  # Minimal CV for speed
+
+  lightgbm_config:
+    n_estimators: 10     # Very few for fast tests
+    learning_rate: 0.3   # Higher LR for faster convergence
+
+  prophet_config:
+    yearly_seasonality: false  # Disable for small test datasets
+    weekly_seasonality: false
+    daily_seasonality: false
+
+# Monitoring Configuration (Testing)
+monitoring:
+  enable_monitoring: false
+  enable_email_alerts: false
+
+# Feature Flags (Testing)
+feature_flags:
+  enable_phase5_models: false     # Test basic functionality first
+  enable_bayesian_calibration: false
+  enable_business_rules: true    # Test business logic
+  enable_real_time_inference: false
+  enable_model_explanability: false
+  enable_drift_detection: false
+  enable_advanced_ensemble: false
+  enable_lstm_models: false      # Too slow for tests
+  enable_arima_models: false
+
+# Validation Configuration (Testing)
+validation:
+  enable_cross_validation: true
+  cv_strategy: "simple_split"
+  n_splits: 2
+  test_size: 0.5
+
+# Performance Configuration (Testing)
+performance:
+  enable_parallel_processing: false  # Avoid race conditions in tests
+  max_workers: 1
+  memory_limit_gb: 2.0
+  enable_gpu: false
+
+# Pipeline Configuration (Testing)
+pipeline:
+  enable_rollback: true
+  enable_checkpoints: false  # No checkpoints in tests
+  max_pipeline_duration: 300  # 5 minutes max
+
+# Testing-specific Configuration
+testing:
+  use_sample_data: true
+  sample_size: 1000
+  mock_external_services: true
+  enable_fixtures: true
+  enable_test_db: true
+  cleanup_after_tests: true
+
+# Test Data Configuration
+test_data:
+  transactions:
+    n_samples: 10000
+    date_range: "2023-01-01,2023-12-31"
+    n_stores: 100
+    n_products: 500
+
+  products:
+    n_samples: 500
+    categories: ["A", "B", "C"]
+
+  stores:
+    n_samples: 100
+    regions: ["North", "South", "East", "West"]
+
+# Test Assertions Configuration
+assertions:
+  wmape_tolerance: 0.50      # Relaxed for test data
+  runtime_tolerance: 2.0     # 2x expected runtime
+  memory_tolerance: 1.5      # 1.5x expected memory
+
+# Coverage Configuration
+coverage:
+  minimum_coverage: 80
+  fail_under_threshold: true
+  exclude_patterns:
+    - "*/tests/*"
+    - "*/migrations/*"
+    - "*/venv/*"
