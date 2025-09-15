@@ -216,10 +216,7 @@ tracker.log_submission(
 ### Estrutura de Commits
 ```bash
 # Seguir padrão
-git commit -m "feat: implement lightgbm baseline model
-
-🤖 Generated with Claude Code
-Co-Authored-By: Claude <noreply@anthropic.com>"
+git commit -m "feat: implement lightgbm baseline model"
 ```
 
 ### Experiment Tracking
