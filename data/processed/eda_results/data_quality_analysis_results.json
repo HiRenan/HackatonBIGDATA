@@ -1,0 +1,373 @@
+{
+  "missing_data_analysis": {
+    "transactions": {
+      "total_records": 1500000,
+      "missing_by_column": {
+        "internal_store_id": 0,
+        "internal_product_id": 0,
+        "transaction_date": 0,
+        "quantity": 0,
+        "gross_value": 0,
+        "net_value": 0
+      },
+      "missing_percentage": {
+        "internal_store_id": 0.0,
+        "internal_product_id": 0.0,
+        "transaction_date": 0.0,
+        "quantity": 0.0,
+        "gross_value": 0.0,
+        "net_value": 0.0
+      },
+      "systematic_patterns": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0
+      }
+    },
+    "products": {
+      "total_records": 7092,
+      "missing_by_column": {
+        "produto": 0,
+        "categoria": 0,
+        "descricao": 0,
+        "subcategoria": 32,
+        "marca": 0,
+        "tipos": 0,
+        "label": 1473,
+        "fabricante": 0
+      },
+      "missing_percentage": {
+        "produto": 0.0,
+        "categoria": 0.0,
+        "descricao": 0.0,
+        "subcategoria": 0.45,
+        "marca": 0.0,
+        "tipos": 0.0,
+        "label": 20.77,
+        "fabricante": 0.0
+      }
+    },
+    "pdvs": {
+      "total_records": 14419,
+      "missing_by_column": {
+        "pdv": 0,
+        "premise": 0,
+        "categoria_pdv": 0,
+        "zipcode": 0
+      },
+      "missing_percentage": {
+        "pdv": 0.0,
+        "premise": 0.0,
+        "categoria_pdv": 0.0,
+        "zipcode": 0.0
+      }
+    }
+  },
+  "outlier_analysis": {
+    "quantity": {
+      "iqr": {
+        "count": 192559,
+        "percentage": 12.837266666666666,
+        "lower_bound": -3.5,
+        "upper_bound": 8.5,
+        "extreme_values": [
+          94230.0,
+          32424.0,
+          32070.0,
+          24923.0,
+          19773.0
+        ]
+      },
+      "zscore": {
+        "count": 4932,
+        "percentage": 0.32880000000000004,
+        "threshold": 3,
+        "extreme_values": [
+          94230.0,
+          32424.0,
+          32070.0,
+          24923.0,
+          19773.0
+        ]
+      },
+      "isolation_forest": {
+        "count": 148578,
+        "percentage": 9.9052,
+        "contamination": 0.1,
+        "extreme_values": [
+          94230.0,
+          32424.0,
+          32070.0,
+          24923.0,
+          19773.0
+        ]
+      }
+    },
+    "gross_value": {
+      "iqr": {
+        "count": 168250,
+        "percentage": 11.216666666666667,
+        "lower_bound": -68.22500324249268,
+        "upper_bound": 188.77500438690186,
+        "extreme_values": [
+          604173.9177856445,
+          522795.11655044556,
+          499323.61083984375,
+          358134.47591400146,
+          296748.4351615906
+        ]
+      },
+      "zscore": {
+        "count": 4396,
+        "percentage": 0.29306666666666664,
+        "threshold": 3,
+        "extreme_values": [
+          604173.9177856445,
+          522795.11655044556,
+          499323.61083984375,
+          358134.47591400146,
+          296748.4351615906
+        ]
+      },
+      "isolation_forest": {
+        "count": 149985,
+        "percentage": 9.998999999999999,
+        "contamination": 0.1,
+        "extreme_values": [
+          604173.9177856445,
+          522795.11655044556,
+          499323.61083984375,
+          358134.47591400146,
+          296748.4351615906
+        ]
+      }
+    },
+    "net_value": {
+      "iqr": {
+        "count": 168478,
+        "percentage": 11.231866666666667,
+        "lower_bound": -64.6068925857544,
+        "upper_bound": 180.01213359832764,
+        "extreme_values": [
+          604173.9177856445,
+          522795.11655044556,
+          499323.61083984375,
+          358134.47591400146,
+          296748.4351615906
+        ]
+      },
+      "zscore": {
+        "count": 4365,
+        "percentage": 0.291,
+        "threshold": 3,
+        "extreme_values": [
+          604173.9177856445,
+          522795.11655044556,
+          499323.61083984375,
+          358134.47591400146,
+          296748.4351615906
+        ]
+      },
+      "isolation_forest": {
+        "count": 149559,
+        "percentage": 9.970600000000001,
+        "contamination": 0.1,
+        "extreme_values": [
+          604173.9177856445,
+          522795.11655044556,
+          499323.61083984375,
+          358134.47591400146,
+          296748.4351615906
+        ]
+      }
+    }
+  },
+  "drift_analysis": {
+    "monthly_drift": {
+      "quantity_mean": {
+        "avg_change": 0.8467474579811096,
+        "max_change": 10.091078758239746,
+        "min_change": -0.8873320817947388,
+        "significant_changes": 2,
+        "stability_score": "0.15325254"
+      },
+      "avg_gross_value": {
+        "avg_change": 0.2750185223665369,
+        "max_change": 3.672816440380876,
+        "min_change": -0.7777324055357838,
+        "significant_changes": 2,
+        "stability_score": 0.7249814776334631
+      },
+      "unique_products": {
+        "avg_change": 0.04185403323040485,
+        "max_change": 0.4061099796334011,
+        "min_change": -0.16164542294322137,
+        "significant_changes": 1,
+        "stability_score": 0.9581459667695952
+      }
+    },
+    "distribution_drift": {
+      "quantity": {
+        "ks_statistic": 0.08379282059859383,
+        "p_value": 0.0,
+        "drift_detected": "True",
+        "first_half_mean": 3.5476489067077637,
+        "second_half_mean": 13.45145320892334
+      },
+      "gross_value": {
+        "ks_statistic": 0.06886765314611265,
+        "p_value": 0.0,
+        "drift_detected": "True",
+        "first_half_mean": 83.62774054266656,
+        "second_half_mean": 169.5043949219398
+      }
+    },
+    "time_period": {
+      "start_date": "2022-01-01",
+      "end_date": "2022-12-31",
+      "n_months": 12
+    }
+  },
+  "consistency_checks": {
+    "referential_integrity": {
+      "products": {
+        "transactions_count": 5966,
+        "catalog_count": 7092,
+        "missing_from_catalog": 0,
+        "orphaned_in_catalog": 1126,
+        "integrity_score": 1.0
+      },
+      "stores": {
+        "transactions_count": 14151,
+        "catalog_count": 14419,
+        "missing_from_catalog": 466,
+        "orphaned_in_catalog": 734,
+        "integrity_score": 0.9670694650554731
+      }
+    },
+    "logical_consistency": {
+      "quantity": {
+        "negative_count": 15931,
+        "zero_count": 14053,
+        "negative_percentage": 1.0620666666666667
+      },
+      "values": {
+        "net_greater_than_gross": 14460,
+        "percentage": 0.964
+      },
+      "dates": {
+        "future_dates": 0,
+        "percentage": 0.0
+      }
+    }
+  },
+  "coverage_analysis": {
+    "temporal": {
+      "total_days": 365,
+      "days_with_data": 365,
+      "missing_days": 0,
+      "coverage_percentage": 100.0
+    },
+    "product_categories": [
+      {
+        "category": "Distilled Spirits",
+        "product_count": 2202
+      },
+      {
+        "category": "Wine",
+        "product_count": 1879
+      },
+      {
+        "category": "Package",
+        "product_count": 1403
+      },
+      {
+        "category": "Draft",
+        "product_count": 918
+      },
+      {
+        "category": "Non-Alcohol",
+        "product_count": 597
+      },
+      {
+        "category": "ABA Spirits",
+        "product_count": 91
+      },
+      {
+        "category": "Tobacco",
+        "product_count": 2
+      }
+    ],
+    "store_regions": [
+      {
+        "region": "80",
+        "store_count": 7451
+      },
+      {
+        "region": "30",
+        "store_count": 4775
+      },
+      {
+        "region": "81",
+        "store_count": 1834
+      },
+      {
+        "region": "31",
+        "store_count": 355
+      },
+      {
+        "region": "90",
+        "store_count": 3
+      },
+      {
+        "region": "39",
+        "store_count": 1
+      }
+    ],
+    "combinations": {
+      "possible_combinations": 84424866,
+      "actual_combinations": 84424866,
+      "coverage_percentage": 100.0
+    }
+  },
+  "quality_insights": {
+    "critical_issues": [
+      "High outlier rate in quantity: 12.8%",
+      "High outlier rate in gross_value: 11.2%",
+      "High outlier rate in net_value: 11.2%",
+      "Significant distribution drift detected in quantity",
+      "Significant distribution drift detected in gross_value"
+    ],
+    "recommendations": [
+      "Consider outlier treatment for quantity before modeling",
+      "Consider outlier treatment for gross_value before modeling",
+      "Consider outlier treatment for net_value before modeling",
+      "Implement model retraining strategy to handle drift",
+      "Implement data validation pipelines for incoming data",
+      "Set up monitoring for data quality metrics",
+      "Create data quality dashboards for ongoing monitoring",
+      "Document data quality issues and treatment strategies"
+    ],
+    "quality_scores": {
+      "transactions_completeness": 100.0,
+      "products_completeness": 97.3475,
+      "pdvs_completeness": 100.0,
+      "referential_integrity": 96.70694650554731,
+      "temporal_coverage": 100.0,
+      "overall_quality": 98.81088930110946
+    },
+    "impact_on_forecasting": [
+      "Data drift may affect model performance over time"
+    ],
+    "quality_rating": "Excellent"
+  }
+}

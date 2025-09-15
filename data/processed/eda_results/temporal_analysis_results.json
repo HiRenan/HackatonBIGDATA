@@ -1,0 +1,358 @@
+{
+  "temporal_patterns": {
+    "weekly": {
+      "by_day": [
+        {
+          "dayofweek": 0,
+          "count": 321044,
+          "sum": 1290300.375,
+          "mean": 4.019076347351074,
+          "day_name": "Monday"
+        },
+        {
+          "dayofweek": 1,
+          "count": 326656,
+          "sum": 1274219.375,
+          "mean": 3.900799036026001,
+          "day_name": "Tuesday"
+        },
+        {
+          "dayofweek": 2,
+          "count": 299390,
+          "sum": 1129866.875,
+          "mean": 3.7738964557647705,
+          "day_name": "Wednesday"
+        },
+        {
+          "dayofweek": 3,
+          "count": 254091,
+          "sum": 948586.6875,
+          "mean": 3.7332558631896973,
+          "day_name": "Thursday"
+        },
+        {
+          "dayofweek": 4,
+          "count": 197641,
+          "sum": 724479.25,
+          "mean": 3.665632486343384,
+          "day_name": "Friday"
+        },
+        {
+          "dayofweek": 5,
+          "count": 5137,
+          "sum": 19470.111328125,
+          "mean": 3.7901716232299805,
+          "day_name": "Saturday"
+        },
+        {
+          "dayofweek": 6,
+          "count": 96041,
+          "sum": 7343052.5,
+          "mean": 76.45747375488281,
+          "day_name": "Sunday"
+        }
+      ],
+      "weekend_share": "0.5783611",
+      "weekend_intensity_ratio": "3.4292443"
+    },
+    "monthly": {
+      "by_month": [
+        {
+          "month": 1,
+          "count": 87792,
+          "sum": 310026.21875,
+          "mean": 3.5313720703125,
+          "month_name": "Jan"
+        },
+        {
+          "month": 2,
+          "count": 94569,
+          "sum": 335435.34375,
+          "mean": 3.546990394592285,
+          "month_name": "Feb"
+        },
+        {
+          "month": 3,
+          "count": 119312,
+          "sum": 422660.75,
+          "mean": 3.54248309135437,
+          "month_name": "Mar"
+        },
+        {
+          "month": 4,
+          "count": 110695,
+          "sum": 386761.46875,
+          "mean": 3.4939379692077637,
+          "month_name": "Apr"
+        },
+        {
+          "month": 5,
+          "count": 131678,
+          "sum": 470597.1875,
+          "mean": 3.573848247528076,
+          "month_name": "May"
+        },
+        {
+          "month": 6,
+          "count": 134824,
+          "sum": 489989.0,
+          "mean": 3.6342861652374268,
+          "month_name": "Jun"
+        },
+        {
+          "month": 7,
+          "count": 116251,
+          "sum": 402395.65625,
+          "mean": 3.4614381790161133,
+          "month_name": "Jul"
+        },
+        {
+          "month": 8,
+          "count": 137589,
+          "sum": 497668.5625,
+          "mean": 3.6170663833618164,
+          "month_name": "Aug"
+        },
+        {
+          "month": 9,
+          "count": 191121,
+          "sum": 7667233.0,
+          "mean": 40.11716842651367,
+          "month_name": "Sep"
+        },
+        {
+          "month": 10,
+          "count": 123466,
+          "sum": 558056.3125,
+          "mean": 4.519918918609619,
+          "month_name": "Oct"
+        },
+        {
+          "month": 11,
+          "count": 127063,
+          "sum": 573706.1875,
+          "mean": 4.515131950378418,
+          "month_name": "Nov"
+        },
+        {
+          "month": 12,
+          "count": 125640,
+          "sum": 615445.5625,
+          "mean": 4.898484230041504,
+          "month_name": "Dec"
+        }
+      ],
+      "high_season": [
+        "Sep"
+      ],
+      "low_season": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Oct",
+        "Nov",
+        "Dec"
+      ],
+      "seasonality_strength": "1.9631774"
+    },
+    "trend": {
+      "classification": "Growing",
+      "slope_per_day": 150.91818631904994,
+      "slope_pct_per_day": 0.4327198658136543,
+      "r_squared": 0.001765583274144869,
+      "is_significant": "True"
+    }
+  },
+  "autocorrelation": {
+    "autocorr_values": [
+      1.0,
+      -0.016716099427858483,
+      -0.022150374024938163,
+      -0.021201013786100793,
+      -0.017836720598378337,
+      -0.017866171591650833,
+      -0.017553879271533266,
+      -0.017864470926469374,
+      -0.01916858209506605,
+      -0.018811189592001915,
+      -0.01140815367302032,
+      -0.024650316364064947,
+      -0.017497646730237203,
+      -0.019502093296995798,
+      -0.017605329427714908,
+      -0.016534708736567247,
+      -0.02081069706411959,
+      -0.006672289610069035,
+      -0.006918836912198436,
+      -0.0071595550285774665,
+      -0.00956297886977261,
+      -0.00908175624868938,
+      -0.009540340143512965,
+      -0.010325655746664391,
+      -0.010368562067694827,
+      -0.011099774995288728,
+      -0.010367740417257111,
+      -0.011600688059842079,
+      -0.013241123702082058,
+      -0.014320788085045654,
+      -0.013452211583900435,
+      -0.012920373248465337,
+      -0.01532282891573571,
+      -0.016540563024259828,
+      -0.017133441773335752,
+      -0.017439748413889233,
+      -0.027472119127816247,
+      0.005721156619727258,
+      0.005359434035302082,
+      0.004867054967748948,
+      0.004411601290483607,
+      0.004076641539413629,
+      0.003698305315491507,
+      0.003409580057981613,
+      0.0031390067871386743,
+      0.002776494294159314,
+      0.002407527244816788,
+      0.00233921584165676,
+      0.0017193156698177396,
+      0.0014072385405336715,
+      0.0010223664426198713,
+      0.000812013941422061,
+      0.0005518699925008757
+    ],
+    "partial_autocorr": [
+      1.0,
+      -0.01671609942785848,
+      -0.02243607127109646,
+      -0.021971829168027267,
+      -0.019106260420076623,
+      -0.01952549908848454,
+      -0.019583960359319807,
+      -0.0202763646413618,
+      -0.02200063807740283,
+      -0.022132858973510753,
+      -0.015215685525266967,
+      -0.028727331348784073,
+      -0.02224876943765952,
+      -0.024849928576803165
+    ],
+    "significant_lags": [],
+    "seasonal_indicators": {
+      "monthly": -0.017836720598378337,
+      "quarterly": -0.019502093296995798,
+      "semi_annual": -0.010367740417257111,
+      "annual": 0.0005518699925008757
+    },
+    "recommended_lags": []
+  },
+  "special_events": {
+    "outlier_threshold_high": 52649.6240234375,
+    "outlier_threshold_low": -28429.7744140625,
+    "n_outlier_days": 1,
+    "outlier_days": [
+      {
+        "transaction_date": "2022-09-11 00:00:00",
+        "total_quantity": 7252225.0,
+        "total_value": 67102563.89249056,
+        "active_stores": 6251,
+        "active_products": 1325,
+        "ma_7": 1052896.9253627232,
+        "ma_30": 255336.519921875,
+        "week_start": "2022-09-05 00:00:00"
+      }
+    ],
+    "event_matches": [],
+    "outlier_percentage": 0.273972602739726
+  },
+  "stl_decomposition": {
+    "trend_strength": 1.0,
+    "seasonal_strength": 1.0,
+    "n_trend_changes": 52,
+    "trend_change_dates": [
+      "2022-01-09",
+      "2022-01-16",
+      "2022-01-23",
+      "2022-01-30",
+      "2022-02-06",
+      "2022-02-13",
+      "2022-02-20",
+      "2022-02-27",
+      "2022-03-06",
+      "2022-03-13"
+    ],
+    "seasonal_peak_weeks": [
+      "2022-09-11",
+      "2022-11-20",
+      "2022-12-18",
+      "2022-12-25"
+    ],
+    "seasonal_trough_weeks": [
+      "2022-01-02",
+      "2022-11-27",
+      "2022-01-16",
+      "2022-01-09"
+    ]
+  },
+  "changepoint_analysis": {
+    "mean_changepoints": [
+      "2022-05-09",
+      "2022-06-13",
+      "2022-08-15",
+      "2022-08-28",
+      "2022-08-29",
+      "2022-09-27",
+      "2022-10-03",
+      "2022-10-10",
+      "2022-10-24",
+      "2022-10-31"
+    ],
+    "volatility_changepoints": [
+      "2022-05-14",
+      "2022-06-18",
+      "2022-07-13",
+      "2022-07-14",
+      "2022-08-28",
+      "2022-09-27",
+      "2022-10-08",
+      "2022-10-15",
+      "2022-10-22",
+      "2022-10-29"
+    ],
+    "n_mean_changes": 17,
+    "n_volatility_changes": 17
+  },
+  "insights": {
+    "key_findings": [
+      "Strong weekend sales pattern - 20%+ higher intensity",
+      "Strong monthly seasonality (strength: 1.96)",
+      "Significant growing trend detected",
+      "1 outlier days detected"
+    ],
+    "forecasting_recommendations": [
+      "Use separate models for weekends vs weekdays",
+      "Include monthly seasonal features in models",
+      "Prioritize trend-following models (Prophet, ARIMA)",
+      "Include holiday/event indicators in models",
+      "Implement online learning for model adaptation"
+    ],
+    "wmape_optimization_tips": [
+      "Focus feature engineering on high-volume periods identified",
+      "Use volume-weighted validation splits to match WMAPE calculation",
+      "Consider separate models for different volume tiers (A/B/C)",
+      "Apply stronger regularization to low-volume products",
+      "Weight ensemble models by historical volume patterns",
+      "Implement post-processing corrections for seasonal biases"
+    ],
+    "seasonal_patterns": [
+      "Strong weekend effect - consider weekend-specific models",
+      "Peak season months: Sep"
+    ],
+    "business_implications": [
+      "High volatility detected - consider adaptive models"
+    ]
+  }
+}

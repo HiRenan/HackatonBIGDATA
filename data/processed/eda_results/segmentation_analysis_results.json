@@ -1,0 +1,220 @@
+{
+  "abc_analysis": {
+    "tier_A": {
+      "product_count": 326,
+      "product_percentage": 5.267409920827274,
+      "quantity_share": "79.94659",
+      "avg_velocity": 408.9544351563314,
+      "avg_store_penetration": 5.823051299474067
+    },
+    "tier_B": {
+      "product_count": 677,
+      "product_percentage": 10.938762320245598,
+      "quantity_share": "15.052204",
+      "avg_velocity": 148.41971177533793,
+      "avg_store_penetration": 2.205689747740728
+    },
+    "tier_C": {
+      "product_count": 5186,
+      "product_percentage": 83.79382775892714,
+      "quantity_share": "5.0012126",
+      "avg_velocity": 15.214507141190264,
+      "avg_store_penetration": 0.2008466942493256
+    }
+  },
+  "velocity_analysis": {
+    "Fast": {
+      "product_count": 1629,
+      "percentage": 26.320891904992727,
+      "quantity_share": "95.20641",
+      "avg_velocity": 189.43923007371504,
+      "avg_transactions": 1003.8305709023941,
+      "avg_store_penetration": 1.9748344629687886,
+      "forecasting_complexity": "Low"
+    },
+    "Medium": {
+      "product_count": 3013,
+      "percentage": 48.68314751979318,
+      "quantity_share": "4.668044",
+      "avg_velocity": 1.3890770956605887,
+      "avg_transactions": 115.45834716229672,
+      "avg_store_penetration": 0.3765751696643761,
+      "forecasting_complexity": "Medium"
+    },
+    "Slow": {
+      "product_count": 1547,
+      "percentage": 24.99596057521409,
+      "quantity_share": "0.12556064",
+      "avg_velocity": -0.05175844358544154,
+      "avg_transactions": 10.914027149321267,
+      "avg_store_penetration": 0.052702852521718975,
+      "forecasting_complexity": "High"
+    }
+  },
+  "abc_velocity_cross": {
+    "Fast": {
+      "A": 100.0,
+      "B": 82.57016248153619,
+      "C": 14.34631700732742
+    },
+    "Medium": {
+      "A": 0.0,
+      "B": 17.429837518463813,
+      "C": 55.82337061318936
+    },
+    "Slow": {
+      "A": 0.0,
+      "B": 0.0,
+      "C": 29.830312379483225
+    }
+  },
+  "pdv_analysis": {
+    "High": {
+      "pdv_count": 3604,
+      "percentage": 25.012145187035877,
+      "quantity_share": "87.9174",
+      "avg_daily_quantity": 62.57826979701434,
+      "avg_product_variety": 1.6980255691332498,
+      "avg_transactions": 405.17036625971144
+    },
+    "Medium": {
+      "pdv_count": 7204,
+      "percentage": 49.996529946561175,
+      "quantity_share": "11.762332",
+      "avg_daily_quantity": 25.62050445863637,
+      "avg_product_variety": 0.3636136375949565,
+      "avg_transactions": 69.90061077179345
+    },
+    "Low": {
+      "pdv_count": 3601,
+      "percentage": 24.99132486640294,
+      "quantity_share": "0.32026908",
+      "avg_daily_quantity": 4.633232334399078,
+      "avg_product_variety": 0.07610532450643137,
+      "avg_transactions": 10.053318522632601
+    }
+  },
+  "category_analysis": {
+    "top_categories": [
+      {
+        "category": "Distilled Spirits",
+        "total_quantity": 10050412.0,
+        "unique_products": 1968,
+        "total_store_presence": 144143,
+        "market_share": 60.213321685791016,
+        "avg_quantity_per_product": 5106.916666666667,
+        "store_penetration": 999.6740411956447,
+        "cluster": 2
+      },
+      {
+        "category": "Package",
+        "total_quantity": 5213409.0,
+        "unique_products": 1294,
+        "total_store_presence": 361272,
+        "market_share": 31.234210968017578,
+        "avg_quantity_per_product": 4028.9095826893354,
+        "store_penetration": 2505.527429086622,
+        "cluster": 1
+      },
+      {
+        "category": "Wine",
+        "total_quantity": 704022.5625,
+        "unique_products": 1494,
+        "total_store_presence": 21922,
+        "market_share": 4.21789026260376,
+        "avg_quantity_per_product": 471.23330823293173,
+        "store_penetration": 152.0355087037936,
+        "cluster": 0
+      },
+      {
+        "category": "Non-Alcohol",
+        "total_quantity": 591392.75,
+        "unique_products": 571,
+        "total_store_presence": 89569,
+        "market_share": 3.5431106090545654,
+        "avg_quantity_per_product": 1035.714098073555,
+        "store_penetration": 621.1873222830988,
+        "cluster": 3
+      },
+      {
+        "category": "Draft",
+        "total_quantity": 85512.0,
+        "unique_products": 770,
+        "total_store_presence": 15674,
+        "market_share": 0.5123134851455688,
+        "avg_quantity_per_product": 111.05454545454545,
+        "store_penetration": 108.7037936056592,
+        "cluster": 0
+      },
+      {
+        "category": "ABA Spirits",
+        "total_quantity": 46369.13671875,
+        "unique_products": 90,
+        "total_store_presence": 6517,
+        "market_share": 0.277803510427475,
+        "avg_quantity_per_product": 515.2126302083333,
+        "store_penetration": 45.19730910604064,
+        "cluster": 0
+      },
+      {
+        "category": "Tobacco",
+        "total_quantity": 225.3000030517578,
+        "unique_products": 2,
+        "total_store_presence": 120,
+        "market_share": 0.0013498015468940139,
+        "avg_quantity_per_product": 112.6500015258789,
+        "store_penetration": 0.8322352451626327,
+        "cluster": 0
+      }
+    ],
+    "cluster_summary": {
+      "avg_market_share": {
+        "0": 1.25,
+        "1": 31.229999542236328,
+        "2": 60.209999084472656,
+        "3": 3.5399999618530273
+      },
+      "avg_qty_per_product": {
+        "0": 302.54,
+        "1": 4028.91,
+        "2": 5106.92,
+        "3": 1035.71
+      },
+      "avg_penetration": {
+        "0": 76.69,
+        "1": 2505.53,
+        "2": 999.67,
+        "3": 621.19
+      },
+      "category_count": {
+        "0": 4,
+        "1": 1,
+        "2": 1,
+        "3": 1
+      }
+    }
+  },
+  "strategic_insights": {
+    "key_findings": [
+      "Tier A products represent 79.9% of total volume",
+      "Fast-moving products account for 95.2% of volume",
+      "High-performance stores drive 87.9% of volume",
+      "Top 3 categories represent 95.7% of market share"
+    ],
+    "wmape_optimization_strategies": [
+      "Focus 80% of modeling effort on Tier A products",
+      "Apply simple models (MA, exponential smoothing) for fast-moving products",
+      "Use complex models (ML ensembles) for slow-moving products",
+      "Implement intermittent demand models for slow movers",
+      "Develop category-specific feature engineering",
+      "Weight model validation by product volume to match WMAPE calculation",
+      "Apply volume-based ensemble weighting",
+      "Implement forecast post-processing for volume-weighted accuracy"
+    ],
+    "segmentation_recommendations": [
+      "Use different forecast horizons for each ABC tier",
+      "Create store-specific forecasting models for high-performance PDVs",
+      "Use regional/cluster models for medium and low-performance stores"
+    ]
+  }
+}
