@@ -30,7 +30,48 @@ from scipy.stats import jarque_bera, normaltest
 from statsmodels.stats.diagnostic import acorr_ljungbox, het_arch
 from statsmodels.tsa.stattools import acf, pacf
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
-from statsmodels.stats.runs import runstest_1samp
+try:
+    from statsmodels.stats.runs import runstest_1samp
+except ImportError:
+    # runstest is not available in newer statsmodels versions
+    # We'll implement a simple alternative
+    def runstest_1samp(x, cutoff='median'):
+        """Simple runs test implementation"""
+        import numpy as np
+        x = np.array(x)
+        if cutoff == 'median':
+            cutoff = np.median(x)
+        elif cutoff == 'mean':
+            cutoff = np.mean(x)
+
+        runs, n1, n2 = 0, 0, 0
+        # Convert to binary
+        binary = x > cutoff
+        n1 = np.sum(binary)
+        n2 = len(x) - n1
+
+        # Count runs
+        if len(binary) > 0:
+            runs = 1
+            for i in range(1, len(binary)):
+                if binary[i] != binary[i-1]:
+                    runs += 1
+
+        # Expected runs and variance
+        expected = (2 * n1 * n2) / (n1 + n2) + 1
+        variance = (2 * n1 * n2 * (2 * n1 * n2 - n1 - n2)) / ((n1 + n2) ** 2 * (n1 + n2 - 1))
+
+        # Z-score
+        if variance > 0:
+            z_score = (runs - expected) / np.sqrt(variance)
+        else:
+            z_score = 0
+
+        # P-value (approximate, two-tailed)
+        from scipy.stats import norm
+        p_value = 2 * (1 - norm.cdf(abs(z_score)))
+
+        return z_score, p_value
 from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolute_percentage_error
 from sklearn.preprocessing import StandardScaler
 import sys

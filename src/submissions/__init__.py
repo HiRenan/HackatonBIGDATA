@@ -11,7 +11,11 @@ from .strategy import (
     EnsembleSubmissionStrategy,
     OptimizedEnsembleSubmissionStrategy,
     FinalSubmissionStrategy,
-    SubmissionStrategyFactory
+    SubmissionStrategyFactory,
+    SubmissionPhase,
+    RiskLevel,
+    SubmissionPlan,
+    SubmissionResult
 )
 
 from .risk_manager import (
@@ -20,22 +24,30 @@ from .risk_manager import (
     OverfittingRiskAssessor,
     ComplexityRiskAssessor,
     LeakageRiskAssessor,
-    ExecutionRiskAssessor
+    ExecutionRiskAssessor,
+    assess_submission_risk,
+    weighted_average
 )
 
 from .leaderboard_analyzer import (
     LeaderboardAnalyzer,
     CompetitiveIntelligence,
     PositionAnalysis,
-    GapAnalysis
+    GapAnalysis,
+    analyze_competition,
+    calculate_gaps_to_top_positions
 )
 
 from .submission_pipeline import (
     SubmissionPipeline,
-    SubmissionStep,
-    ValidationStep,
-    PostProcessingStep,
+    BaseSubmissionStep,
+    SubmissionStep,  # Alias for BaseSubmissionStep
+    DataValidationStep,
+    ValidationStep,  # Alias for DataValidationStep
+    ModelTrainingStep,
     RiskAssessmentStep,
+    CompetitiveAnalysisStep,
+    PostProcessingStep,
     SubmissionExecutionStep
 )
 
@@ -67,6 +79,10 @@ __all__ = [
     "OptimizedEnsembleSubmissionStrategy",
     "FinalSubmissionStrategy",
     "SubmissionStrategyFactory",
+    "SubmissionPhase",
+    "RiskLevel",
+    "SubmissionPlan",
+    "SubmissionResult",
 
     # Risk management
     "RiskAssessment",
@@ -75,19 +91,27 @@ __all__ = [
     "ComplexityRiskAssessor",
     "LeakageRiskAssessor",
     "ExecutionRiskAssessor",
+    "assess_submission_risk",
+    "weighted_average",
 
     # Competitive analysis
     "LeaderboardAnalyzer",
     "CompetitiveIntelligence",
     "PositionAnalysis",
     "GapAnalysis",
+    "analyze_competition",
+    "calculate_gaps_to_top_positions",
 
     # Pipeline components
     "SubmissionPipeline",
-    "SubmissionStep",
-    "ValidationStep",
-    "PostProcessingStep",
+    "BaseSubmissionStep",
+    "SubmissionStep",  # Alias
+    "DataValidationStep",
+    "ValidationStep",  # Alias
+    "ModelTrainingStep",
     "RiskAssessmentStep",
+    "CompetitiveAnalysisStep",
+    "PostProcessingStep",
     "SubmissionExecutionStep",
 
     # Timeline management
@@ -102,7 +126,15 @@ __all__ = [
     "OutlierCappingPostProcessor",
     "SeasonalAdjustmentPostProcessor",
     "EnsembleBlendingPostProcessor",
-    "PostProcessorPipeline"
+    "PostProcessorPipeline",
+
+    # Convenience functions
+    "create_submission_strategy",
+    "assess_submission_risk",
+    "analyze_leaderboard",
+    "get_submission_info",
+    "version",
+    "phase7_info"
 ]
 
 # Module metadata
@@ -141,15 +173,16 @@ def create_submission_strategy(strategy_type: str, **kwargs):
     """Convenience function to create submission strategy"""
     return SubmissionStrategyFactory.create(strategy_type, **kwargs)
 
-def assess_submission_risk(model, validation_data, **kwargs):
+def assess_submission_risk(model, validation_score, **kwargs):
     """Convenience function for risk assessment"""
-    risk_manager = RiskManager()
-    return risk_manager.assess_full_risk(model, validation_data, **kwargs)
+    from .risk_manager import assess_submission_risk as assess_risk
+    return assess_risk(model, validation_score)
 
 def analyze_leaderboard(leaderboard_data, current_position=None):
     """Convenience function for leaderboard analysis"""
+    from .leaderboard_analyzer import LeaderboardAnalyzer
     analyzer = LeaderboardAnalyzer()
-    return analyzer.analyze_competitive_landscape(leaderboard_data, current_position)
+    return analyzer.analyze_competitive_landscape(leaderboard_data, 'team', current_position)
 
 # Version information
 def version():

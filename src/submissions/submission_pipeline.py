@@ -21,11 +21,16 @@ import json
 project_root = Path(__file__).parent.parent.parent
 sys.path.append(str(project_root))
 
-from src.architecture.pipelines import BasePipeline, PipelineStep
+from src.architecture.pipelines import Pipeline, PipelineStep
 from src.submissions.strategy import BaseSubmissionStrategy, SubmissionResult, SubmissionPhase
 from src.submissions.risk_manager import RiskManager, RiskAssessment
 from src.submissions.leaderboard_analyzer import LeaderboardAnalyzer, CompetitiveIntelligence
-from src.experiment_tracking.enhanced_mlflow import EnhancedMLflowTracker
+try:
+    from src.experiment_tracking.enhanced_mlflow import EnhancedMLflowTracker
+    MLFLOW_AVAILABLE = True
+except ImportError:
+    MLFLOW_AVAILABLE = False
+    EnhancedMLflowTracker = None
 from src.utils.logging import get_logger
 from src.utils.config import get_config_manager
 
@@ -118,6 +123,10 @@ class DataValidationStep(BaseSubmissionStep):
         self.min_train_size = self.config.get('min_train_size', 1000)
         self.min_test_size = self.config.get('min_test_size', 100)
 
+    def rollback(self, data, context):
+        """No rollback needed for validation step"""
+        return data
+
     def execute_step(self, context: Dict[str, Any]) -> StepResult:
         """Validate training and test data"""
         train_data = context['train_data']
@@ -178,6 +187,10 @@ class ModelTrainingStep(BaseSubmissionStep):
         super().__init__("model_training", config)
         self.required_inputs = ['train_data', 'submission_strategy']
 
+    def rollback(self, data: Any, context: Dict[str, Any]) -> Any:
+        """No rollback needed for model training step"""
+        return data
+
     def execute_step(self, context: Dict[str, Any]) -> StepResult:
         """Train model using submission strategy"""
         train_data = context['train_data']
@@ -218,6 +231,10 @@ class RiskAssessmentStep(BaseSubmissionStep):
         super().__init__("risk_assessment", config)
         self.required_inputs = ['submission_result', 'train_data']
         self.risk_manager = RiskManager(config.get('risk_config', {}))
+
+    def rollback(self, data: Any, context: Dict[str, Any]) -> Any:
+        """No rollback needed for risk assessment step"""
+        return data
 
     def execute_step(self, context: Dict[str, Any]) -> StepResult:
         """Assess risk of submission"""
@@ -264,6 +281,10 @@ class CompetitiveAnalysisStep(BaseSubmissionStep):
         self.required_inputs = ['submission_result']
         self.analyzer = LeaderboardAnalyzer(config.get('leaderboard_config', {}))
 
+    def rollback(self, data: Any, context: Dict[str, Any]) -> Any:
+        """No rollback needed for competitive analysis step"""
+        return data
+
     def execute_step(self, context: Dict[str, Any]) -> StepResult:
         """Analyze competitive position"""
         submission_result = context['submission_result']
@@ -304,6 +325,10 @@ class PostProcessingStep(BaseSubmissionStep):
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         super().__init__("post_processing", config)
         self.required_inputs = ['submission_result']
+
+    def rollback(self, data: Any, context: Dict[str, Any]) -> Any:
+        """No rollback needed for post-processing step"""
+        return data
 
     def execute_step(self, context: Dict[str, Any]) -> StepResult:
         """Apply post-processing to predictions"""
@@ -383,6 +408,10 @@ class SubmissionExecutionStep(BaseSubmissionStep):
         self.required_inputs = ['processed_submission_result', 'risk_assessment']
         self.max_risk_threshold = self.config.get('max_risk_threshold', 0.8)
 
+    def rollback(self, data: Any, context: Dict[str, Any]) -> Any:
+        """No rollback needed for submission execution step"""
+        return data
+
     def execute_step(self, context: Dict[str, Any]) -> StepResult:
         """Execute final submission"""
         submission_result = context['processed_submission_result']
@@ -426,12 +455,12 @@ class SubmissionExecutionStep(BaseSubmissionStep):
         logger.info(f"Submission saved: {filepath}")
         return filepath
 
-class SubmissionPipeline(BasePipeline):
+class SubmissionPipeline(Pipeline):
     """Complete submission pipeline"""
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         super().__init__("submission_pipeline", config)
-        self.mlflow_tracker = EnhancedMLflowTracker()
+        self.mlflow_tracker = EnhancedMLflowTracker() if MLFLOW_AVAILABLE else None
         self.steps_registry = {}
         self._initialize_steps()
 
@@ -455,73 +484,78 @@ class SubmissionPipeline(BasePipeline):
                                    **kwargs) -> Dict[str, Any]:
         """Execute complete submission pipeline"""
 
-        with self.mlflow_tracker.start_run(f"submission_pipeline_{submission_strategy.phase.name}"):
-            logger.info(f"Starting submission pipeline for {submission_strategy.phase.name}")
+        if self.mlflow_tracker:
+            run_context = self.mlflow_tracker.start_run(f"submission_pipeline_{submission_strategy.phase.name}")
+        else:
+            run_context = None
 
-            # Initialize context
-            context = {
-                'train_data': train_data,
-                'test_data': test_data,
-                'submission_strategy': submission_strategy,
-                **kwargs
-            }
+        logger.info(f"Starting submission pipeline for {submission_strategy.phase.name}")
 
-            # Log pipeline start
+        # Initialize context
+        context = {
+            'train_data': train_data,
+            'test_data': test_data,
+            'submission_strategy': submission_strategy,
+            **kwargs
+        }
+
+        # Log pipeline start
+        if self.mlflow_tracker:
             self.mlflow_tracker.log_dataset_info(train_data, "train_data")
             self.mlflow_tracker.log_dataset_info(test_data, "test_data")
 
-            results = {}
-            pipeline_success = True
+        results = {}
+        pipeline_success = True
 
-            try:
-                # Step 1: Data Validation
-                step_result = self.steps_registry['data_validation'].execute(None, context)
-                results['data_validation'] = step_result
+        try:
+            # Step 1: Data Validation
+            step_result = self.steps_registry['data_validation'].execute(None, context)
+            results['data_validation'] = step_result
 
-                if step_result.status == StepStatus.FAILED:
-                    pipeline_success = False
-                    logger.error("Data validation failed, stopping pipeline")
-                    return self._create_pipeline_result(results, pipeline_success, context)
-
-                # Step 2: Model Training
-                step_result = self.steps_registry['model_training'].execute(None, context)
-                results['model_training'] = step_result
-
-                if step_result.status == StepStatus.FAILED:
-                    pipeline_success = False
-                    logger.error("Model training failed, stopping pipeline")
-                    return self._create_pipeline_result(results, pipeline_success, context)
-
-                context['submission_result'] = step_result.data
-
-                # Step 3: Risk Assessment
-                step_result = self.steps_registry['risk_assessment'].execute(None, context)
-                results['risk_assessment'] = step_result
-                context['risk_assessment'] = step_result.data
-
-                # Step 4: Competitive Analysis
-                step_result = self.steps_registry['competitive_analysis'].execute(None, context)
-                results['competitive_analysis'] = step_result
-                context['competitive_intelligence'] = step_result.data
-
-                # Step 5: Post Processing
-                step_result = self.steps_registry['post_processing'].execute(None, context)
-                results['post_processing'] = step_result
-                context['processed_submission_result'] = step_result.data
-
-                # Step 6: Submission Execution
-                step_result = self.steps_registry['submission_execution'].execute(None, context)
-                results['submission_execution'] = step_result
-
-                if step_result.status == StepStatus.FAILED:
-                    pipeline_success = False
-                    logger.warning("Submission execution failed due to high risk")
-
-            except Exception as e:
-                logger.error(f"Pipeline execution failed: {str(e)}")
+            if step_result.status == StepStatus.FAILED:
                 pipeline_success = False
+                logger.error("Data validation failed, stopping pipeline")
+                return self._create_pipeline_result(results, pipeline_success, context)
 
-            return self._create_pipeline_result(results, pipeline_success, context)
+            # Step 2: Model Training
+            step_result = self.steps_registry['model_training'].execute(None, context)
+            results['model_training'] = step_result
+
+            if step_result.status == StepStatus.FAILED:
+                pipeline_success = False
+                logger.error("Model training failed, stopping pipeline")
+                return self._create_pipeline_result(results, pipeline_success, context)
+
+            context['submission_result'] = step_result.data
+
+            # Step 3: Risk Assessment
+            step_result = self.steps_registry['risk_assessment'].execute(None, context)
+            results['risk_assessment'] = step_result
+            context['risk_assessment'] = step_result.data
+
+            # Step 4: Competitive Analysis
+            step_result = self.steps_registry['competitive_analysis'].execute(None, context)
+            results['competitive_analysis'] = step_result
+            context['competitive_intelligence'] = step_result.data
+
+            # Step 5: Post Processing
+            step_result = self.steps_registry['post_processing'].execute(None, context)
+            results['post_processing'] = step_result
+            context['processed_submission_result'] = step_result.data
+
+            # Step 6: Submission Execution
+            step_result = self.steps_registry['submission_execution'].execute(None, context)
+            results['submission_execution'] = step_result
+
+            if step_result.status == StepStatus.FAILED:
+                pipeline_success = False
+                logger.warning("Submission execution failed due to high risk")
+
+        except Exception as e:
+            logger.error(f"Pipeline execution failed: {str(e)}")
+            pipeline_success = False
+
+        return self._create_pipeline_result(results, pipeline_success, context)
 
     def _create_pipeline_result(self,
                                results: Dict[str, StepResult],
@@ -578,6 +612,12 @@ class SubmissionPipeline(BasePipeline):
 def create_submission_pipeline(config: Optional[Dict[str, Any]] = None) -> SubmissionPipeline:
     """Create configured submission pipeline"""
     return SubmissionPipeline(config)
+
+
+# Aliases for backward compatibility
+SubmissionStep = BaseSubmissionStep
+ValidationStep = DataValidationStep
+
 
 def execute_strategic_submission(strategy_type: str,
                                 train_data: pd.DataFrame,

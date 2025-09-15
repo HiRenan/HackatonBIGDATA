@@ -586,13 +586,153 @@ class RiskManager:
 
         return "\n".join(summary_lines)
 
-def assess_submission_risk(model: Any,
-                          validation_data: pd.DataFrame,
-                          config: Optional[Dict[str, Any]] = None,
-                          **kwargs) -> RiskAssessment:
-    """Convenience function for risk assessment"""
+def weighted_average(risk_factors: Dict[str, float]) -> float:
+    """
+    Calculate weighted average of risk factors
+
+    Args:
+        risk_factors: Dictionary with risk factor names and scores (0.0 to 1.0)
+
+    Returns:
+        Weighted average risk score
+    """
+    if not risk_factors:
+        return 0.0
+
+    # Default weights for risk factors
+    weights = {
+        'overfitting_risk': 1.5,  # Most critical
+        'complexity_risk': 1.0,
+        'data_leakage_risk': 2.0,  # Very critical
+        'execution_risk': 1.0
+    }
+
+    total_weighted_score = 0.0
+    total_weight = 0.0
+
+    for factor, score in risk_factors.items():
+        weight = weights.get(factor, 1.0)
+        total_weighted_score += score * weight
+        total_weight += weight
+
+    return total_weighted_score / total_weight if total_weight > 0 else 0.0
+
+
+def calculate_train_val_gap(model: Any) -> float:
+    """Calculate training vs validation gap for overfitting assessment"""
+    # Handle both dict and object models
+    def get_param(param_name, default=0):
+        if isinstance(model, dict):
+            return model.get(param_name, default)
+        else:
+            return getattr(model, param_name, default)
+
+    # Check for suspiciously high validation score (possible overfitting)
+    val_score = get_param('validation_score', 0)
+    if val_score > 0.95:
+        return 0.9  # Very high overfitting risk
+
+    # Check actual train-val gap if available
+    train_score = get_param('train_score', 0)
+    if train_score > 0 and val_score > 0:
+        return min(abs(train_score - val_score), 1.0)
+
+    return 0.1  # Default moderate gap
+
+
+def assess_model_complexity(model: Any) -> float:
+    """Assess model complexity risk"""
+    # Mock implementation - in real scenario would analyze model parameters
+    complexity_indicators = 0
+
+    # Handle both dict and object models
+    def get_param(param_name, default=0):
+        if isinstance(model, dict):
+            return model.get(param_name, default)
+        else:
+            return getattr(model, param_name, default)
+
+    if get_param('n_estimators', 0) > 1000:
+        complexity_indicators += 0.3
+    if get_param('max_depth', 0) > 20:
+        complexity_indicators += 0.3
+    if get_param('learning_rate', 1.0) < 0.01:
+        complexity_indicators += 0.2
+
+    return min(complexity_indicators, 1.0)
+
+
+def check_for_leakage(model: Any) -> float:
+    """Check for potential data leakage"""
+    # Mock implementation - in real scenario would analyze feature importance and data
+    # Handle both dict and object models
+    def get_param(param_name, default=0):
+        if isinstance(model, dict):
+            return model.get(param_name, default)
+        else:
+            return getattr(model, param_name, default)
+
+    if get_param('validation_score', 0) > 0.95:
+        return 0.8  # Suspiciously high score
+    return 0.1  # Low leakage risk
+
+
+def test_prediction_pipeline(model: Any) -> float:
+    """Test prediction pipeline execution risk"""
+    try:
+        # Mock test - in real scenario would run actual pipeline test
+        if hasattr(model, 'predict'):
+            return 0.1  # Low execution risk
+        else:
+            return 0.7  # High risk if no predict method
+    except Exception:
+        return 0.9  # Very high risk if pipeline fails
+
+
+def assess_submission_risk(model: Any, validation_score: float) -> str:
+    """
+    Submission Risk Assessment
+
+    Args:
+        model: The trained model
+        validation_score: Validation score (typically WMAPE)
+
+    Returns:
+        Risk assessment string with recommendation
+    """
+    risk_factors = {
+        'overfitting_risk': calculate_train_val_gap(model),
+        'complexity_risk': assess_model_complexity(model),
+        'data_leakage_risk': check_for_leakage(model),
+        'execution_risk': test_prediction_pipeline(model)
+    }
+
+    overall_risk = weighted_average(risk_factors)
+
+    if overall_risk > 0.7:
+        return 'HIGH_RISK - Consider simpler model'
+    elif overall_risk > 0.4:
+        return 'MEDIUM_RISK - Additional validation needed'
+    else:
+        return 'LOW_RISK - Safe to submit'
+
+
+# Legacy function for backward compatibility
+def assess_submission_risk_legacy(model: Any,
+                                 validation_data: pd.DataFrame,
+                                 config: Optional[Dict[str, Any]] = None,
+                                 **kwargs) -> RiskAssessment:
+    """Convenience function for risk assessment (legacy version)"""
     risk_manager = RiskManager(config)
     return risk_manager.assess_full_risk(model, validation_data, **kwargs)
+
+
+def create_risk_manager(config: Optional[Dict[str, Any]] = None) -> RiskManager:
+    """Factory function to create a configured RiskManager"""
+    if config is None:
+        config = {}
+    return RiskManager(config)
+
 
 if __name__ == "__main__":
     # Demo usage

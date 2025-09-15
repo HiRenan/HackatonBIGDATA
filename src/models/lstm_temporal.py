@@ -37,6 +37,12 @@ try:
     TENSORFLOW_AVAILABLE = True
 except ImportError:
     TENSORFLOW_AVAILABLE = False
+    # Create dummy classes to prevent import errors
+    class Model:
+        pass
+    class layers:
+        class Layer:
+            pass
     print("[WARNING] TensorFlow not available. LSTM functionality will be limited.")
 
 # Add project root to path
@@ -88,62 +94,63 @@ class VolumeWeightedMSE:
         
         return tf.reduce_mean(weighted_loss)
 
-class TemporalAttention(layers.Layer):
-    """
-    Custom Temporal Attention Layer
-    
-    Learns to focus on important time steps in the sequence
-    for better forecasting performance.
-    """
-    
-    def __init__(self, attention_dim: int = 64, **kwargs):
-        super().__init__(**kwargs)
-        self.attention_dim = attention_dim
-    
-    def build(self, input_shape):
-        self.W = self.add_weight(
-            shape=(input_shape[-1], self.attention_dim),
-            initializer='random_normal',
-            trainable=True,
-            name='attention_W'
-        )
-        self.b = self.add_weight(
-            shape=(self.attention_dim,),
-            initializer='zeros',
-            trainable=True,
-            name='attention_b'
-        )
-        self.u = self.add_weight(
-            shape=(self.attention_dim,),
-            initializer='random_normal',
-            trainable=True,
-            name='attention_u'
-        )
-        super().build(input_shape)
-    
-    def call(self, inputs):
-        if not TENSORFLOW_AVAILABLE:
-            return inputs
-        
-        # inputs shape: (batch_size, time_steps, features)
-        # Compute attention scores
-        uit = tf.tanh(tf.tensordot(inputs, self.W, axes=1) + self.b)
-        ait = tf.tensordot(uit, self.u, axes=1)
-        ait = tf.nn.softmax(ait, axis=1)
-        
-        # Apply attention weights
-        ait = tf.expand_dims(ait, -1)
-        weighted_input = inputs * ait
-        output = tf.reduce_sum(weighted_input, axis=1)
-        
-        return output
-    
-    def get_config(self):
-        config = super().get_config()
-        config.update({
-            'attention_dim': self.attention_dim
-        })
-        return config
+if TENSORFLOW_AVAILABLE:
+    class TemporalAttention(layers.Layer):
+        """
+        Custom Temporal Attention Layer
+
+        Learns to focus on important time steps in the sequence
+        for better forecasting performance.
+        """
+
+        def __init__(self, attention_dim: int = 64, **kwargs):
+            super().__init__(**kwargs)
+            self.attention_dim = attention_dim
+
+        def build(self, input_shape):
+            self.W = self.add_weight(
+                shape=(input_shape[-1], self.attention_dim),
+                initializer='random_normal',
+                trainable=True,
+                name='attention_W'
+            )
+            self.b = self.add_weight(
+                shape=(self.attention_dim,),
+                initializer='zeros',
+                trainable=True,
+                name='attention_b'
+            )
+            self.u = self.add_weight(
+                shape=(self.attention_dim,),
+                initializer='random_normal',
+                trainable=True,
+                name='attention_u'
+            )
+            super().build(input_shape)
+
+        def call(self, inputs):
+            if not TENSORFLOW_AVAILABLE:
+                return inputs
+
+            # inputs shape: (batch_size, time_steps, features)
+            # Compute attention scores
+            uit = tf.tanh(tf.tensordot(inputs, self.W, axes=1) + self.b)
+            ait = tf.tensordot(uit, self.u, axes=1)
+            ait = tf.nn.softmax(ait, axis=1)
+
+            # Apply attention weights
+            ait = tf.expand_dims(ait, -1)
+            weighted_input = inputs * ait
+            output = tf.reduce_sum(weighted_input, axis=1)
+
+            return output
+
+        def get_config(self):
+            config = super().get_config()
+            config.update({
+                'attention_dim': self.attention_dim
+            })
+            return config
 
 class LSTMTemporal:
     """

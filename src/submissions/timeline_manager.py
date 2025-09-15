@@ -544,14 +544,7 @@ class TimelineManager:
 
         return "\n".join(summary_lines)
 
-def create_competition_timeline(competition_name: str,
-                              start_date: datetime,
-                              end_date: datetime,
-                              config: Optional[Dict[str, Any]] = None) -> TimelineManager:
-    """Create configured timeline manager"""
-    manager = TimelineManager(config)
-    manager.create_competition_schedule(competition_name, start_date, end_date)
-    return manager
+# Function removed - duplicate, use create_competition_timeline() below
 
 if __name__ == "__main__":
     # Demo usage
@@ -584,3 +577,29 @@ if __name__ == "__main__":
 
     print("\n⏰ Timeline management system ready!")
     print("Ready to manage strategic submission timing and deadlines.")
+
+
+def create_competition_timeline(config: Optional[Dict[str, Any]] = None,
+                               competition_name: str = "Competition",
+                               start_date: Optional[datetime] = None,
+                               end_date: Optional[datetime] = None) -> TimelineManager:
+    """Factory function to create a configured TimelineManager with competition schedule"""
+    if config is None:
+        config = {}
+
+    manager = TimelineManager(config)
+
+    # Set up default dates if not provided
+    if start_date is None:
+        start_date = datetime.now(timezone.utc)
+    if end_date is None:
+        end_date = start_date + timedelta(days=15)  # Default 15-day competition
+
+    # Create competition schedule
+    schedule = manager.create_competition_schedule(
+        competition_name,
+        start_date,
+        end_date
+    )
+
+    return manager

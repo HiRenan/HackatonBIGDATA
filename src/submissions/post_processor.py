@@ -562,3 +562,22 @@ if __name__ == "__main__":
 
     print("\n🔄 Post-processing system ready!")
     print("Ready to optimize predictions with advanced post-processing techniques.")
+
+
+def create_post_processor(config: Optional[Union[str, Dict[str, Any]]] = None) -> PostProcessorPipeline:
+    """Factory function to create a configured PostProcessorPipeline
+
+    Args:
+        config: Configuration for post-processor. Can be:
+            - None: Creates standard pipeline with default config
+            - str: Processor type ('business_rules', 'outlier_capping', etc.)
+            - dict: Full configuration dictionary
+    """
+    if config is None:
+        config = {}
+    elif isinstance(config, str):
+        # Convert string processor type to config dict
+        processor_type = config
+        config = {processor_type: {'enabled': True}}
+
+    return create_standard_pipeline(config)

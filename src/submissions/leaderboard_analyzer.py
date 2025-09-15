@@ -326,7 +326,7 @@ class LeaderboardAnalyzer:
             risk_factors['overreach_risk'] = 0.2  # Conservative
 
         # Competitive pressure risk
-        gap_pressure = min(gaps.gap_to_top / 10, 1.0)  # Normalize gap pressure
+        gap_pressure = min(position.gap_to_top / 10, 1.0)  # Normalize gap pressure
         risk_factors['competitive_pressure'] = gap_pressure
 
         return risk_factors
@@ -522,3 +522,104 @@ if __name__ == "__main__":
 
     print("\n🏆 Competitive intelligence system ready!")
     print("Ready to dominate the leaderboard with strategic analysis.")
+
+
+def create_leaderboard_analyzer(config: Optional[Dict[str, Any]] = None) -> LeaderboardAnalyzer:
+    """Factory function to create a configured LeaderboardAnalyzer"""
+    if config is None:
+        config = {}
+    return LeaderboardAnalyzer(config)
+
+
+def calculate_gaps_to_top_positions(leaderboard_data: Union[pd.DataFrame, List[Dict]],
+                                    team_name: str,
+                                    current_score: Optional[float] = None) -> Dict[str, float]:
+    """
+    Calculate score gaps to top positions
+
+    Returns:
+        Dictionary with gaps to top_3, top_10, and current position info
+    """
+    # Convert to DataFrame if needed
+    if isinstance(leaderboard_data, list):
+        leaderboard_df = pd.DataFrame(leaderboard_data)
+    else:
+        leaderboard_df = leaderboard_data.copy()
+
+    # Sort by score (ascending, assuming lower is better for WMAPE)
+    leaderboard_df = leaderboard_df.sort_values('score', ascending=True).reset_index(drop=True)
+
+    # Find team position
+    team_row = leaderboard_df[leaderboard_df['team'] == team_name]
+    if len(team_row) == 0:
+        # Team not found, use provided score if available
+        if current_score is None:
+            current_score = leaderboard_df['score'].max() + 1  # Assume worst case
+        team_score = current_score
+        team_rank = len(leaderboard_df) + 1
+    else:
+        team_score = team_row.iloc[0]['score']
+        team_rank = team_row.index[0] + 1  # 1-indexed rank
+
+    # Calculate gaps
+    top_3_score = leaderboard_df.iloc[2]['score'] if len(leaderboard_df) >= 3 else leaderboard_df.iloc[-1]['score']
+    top_10_score = leaderboard_df.iloc[9]['score'] if len(leaderboard_df) >= 10 else leaderboard_df.iloc[-1]['score']
+
+    score_gaps = {
+        'top_3': max(0, team_score - top_3_score),
+        'top_10': max(0, team_score - top_10_score),
+        'current_rank': team_rank,
+        'current_score': team_score,
+        'total_teams': len(leaderboard_df)
+    }
+
+    return score_gaps
+
+
+def analyze_competition(leaderboard_data: Union[pd.DataFrame, List[Dict]] = None,
+                       team_name: str = None,
+                       baseline_score: float = None) -> str:
+    """
+    Competitive Intelligence Analysis
+
+    Returns strategic decision based on competitive analysis
+    """
+    if leaderboard_data is None or team_name is None:
+        return 'insufficient_data'
+
+    # Score gaps analysis
+    score_gaps = calculate_gaps_to_top_positions(leaderboard_data, team_name)
+
+    # Improvement needed with 5% buffer
+    improvement_needed = {
+        'top_3': score_gaps['top_3'] * 1.05,  # 5% buffer
+        'top_10': score_gaps['top_10'] * 1.05,
+        'beat_baseline': abs(score_gaps['current_score'] - baseline_score) if baseline_score else 0  # gap from baseline
+    }
+
+    # Strategic decisions
+    if improvement_needed['top_3'] < 2.0:  # if close to top 3
+        strategy = 'aggressive_optimization'
+    elif improvement_needed['beat_baseline'] > 10.0:  # far from baseline
+        strategy = 'fundamental_improvements'
+    else:
+        strategy = 'incremental_optimization'
+
+    return strategy
+
+
+# Legacy function for backward compatibility
+def analyze_competition_legacy(leaderboard_data: Union[pd.DataFrame, List[Dict]],
+                              team_name: str,
+                              current_score: Optional[float] = None,
+                              config: Optional[Dict[str, Any]] = None) -> CompetitiveIntelligence:
+    """Analyze competitive landscape and provide intelligence (legacy version)"""
+    analyzer = create_leaderboard_analyzer(config)
+
+    # Convert to DataFrame if needed
+    if isinstance(leaderboard_data, list):
+        leaderboard_df = pd.DataFrame(leaderboard_data)
+    else:
+        leaderboard_df = leaderboard_data.copy()
+
+    return analyzer.analyze_competitive_landscape(leaderboard_df, team_name, current_score)

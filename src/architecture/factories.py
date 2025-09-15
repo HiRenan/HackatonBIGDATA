@@ -242,7 +242,7 @@ class EvaluationFactory(BaseFactory):
         try:
             from ..evaluation.metrics import wmape, mape, mae, rmse
             from ..evaluation.error_analysis import ErrorDecomposer, ErrorVisualizationEngine
-            from ..evaluation.model_diagnostics import ModelDiagnostics
+            from ..evaluation.model_diagnostics import ModelHealthDashboard as ModelDiagnostics
 
             # Register metric functions
             self._registry['wmape'] = wmape

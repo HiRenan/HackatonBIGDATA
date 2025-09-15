@@ -46,25 +46,51 @@ def check_system_requirements():
         'meets_requirements': ram_gb >= 8 and free_space_gb >= 20
     }
 
+def check_python_version():
+    """Check Python version compatibility"""
+    print("\nCHECKING PYTHON VERSION")
+    print("=" * 50)
+
+    current_version = sys.version_info
+    current_str = f"{current_version.major}.{current_version.minor}.{current_version.micro}"
+    print(f"Current Python version: {current_str}")
+
+    # Recommended versions
+    if current_version >= (3, 13):
+        print("⚠️  WARNING: Python 3.13+ detected!")
+        print("   Some dependencies may not be compatible yet.")
+        print("   Recommended: Python 3.10 or 3.11")
+        return False
+    elif current_version >= (3, 10) and current_version < (3, 12):
+        print("✅ EXCELLENT: Python version is optimal for this project")
+        return True
+    elif current_version >= (3, 8):
+        print("✅ GOOD: Python version should work")
+        return True
+    else:
+        print("❌ ERROR: Python 3.8+ required")
+        return False
+
 def create_conda_env():
     """Create optimized conda environment"""
     print("\nCREATING CONDA ENVIRONMENT")
     print("=" * 50)
-    
+
     env_name = "hackathon_forecast_2025"
-    
+
     # Check if conda is available
     try:
         subprocess.run(['conda', '--version'], check=True, capture_output=True)
         print("Conda detected. Creating optimized environment...")
-        
-        # Create environment with Python 3.10 for optimal performance
+
+        # Create environment with Python 3.10 for maximum compatibility
+        print("📌 Using Python 3.10 for maximum compatibility")
         create_cmd = [
-            'conda', 'create', '-n', env_name, 
+            'conda', 'create', '-n', env_name,
             'python=3.10', '-y'
         ]
         subprocess.run(create_cmd, check=True)
-        
+
         # Install conda-forge packages for performance
         conda_packages = [
             'conda', 'install', '-n', env_name, '-c', 'conda-forge',
@@ -72,12 +98,13 @@ def create_conda_env():
             'matplotlib', 'seaborn', 'jupyter', '-y'
         ]
         subprocess.run(conda_packages, check=True)
-        
+
         print(f"Environment '{env_name}' created successfully!")
         print(f"Activate with: conda activate {env_name}")
-        
+        print("📝 Note: This creates a Python 3.10 environment for compatibility")
+
         return True
-        
+
     except (subprocess.CalledProcessError, FileNotFoundError):
         print("Conda not found. Will use pip installation instead.")
         return False
@@ -86,26 +113,59 @@ def install_requirements():
     """Install Python requirements with pip"""
     print("\nINSTALLING REQUIREMENTS")
     print("=" * 50)
-    
-    requirements_file = Path("requirements.txt")
-    if not requirements_file.exists():
-        print("ERROR: requirements.txt not found!")
-        return False
-    
+
+    # Check available requirements files
+    requirements_files = {
+        'core': Path("requirements.txt"),
+        'py310': Path("requirements-py310.txt"),
+        'optional': Path("requirements-optional.txt"),
+        'dev': Path("requirements-dev.txt")
+    }
+
+    # Determine which requirements to use
+    current_version = sys.version_info
+
     try:
         # Upgrade pip first
-        subprocess.run([sys.executable, '-m', 'pip', 'install', '--upgrade', 'pip'], 
+        print("Upgrading pip...")
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '--upgrade', 'pip'],
                       check=True)
-        
-        # Install requirements
-        subprocess.run([sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt'], 
+
+        # Choose requirements file based on Python version
+        if current_version >= (3, 10) and current_version < (3, 11) and requirements_files['py310'].exists():
+            print("📌 Using Python 3.10 specific requirements for maximum compatibility")
+            requirements_file = requirements_files['py310']
+        elif requirements_files['core'].exists():
+            print("📌 Using flexible core requirements")
+            requirements_file = requirements_files['core']
+        else:
+            print("ERROR: No requirements.txt found!")
+            return False
+
+        # Install core requirements
+        print(f"Installing {requirements_file.name}...")
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '-r', str(requirements_file)],
                       check=True)
-        
-        print("All requirements installed successfully!")
+
+        # Ask about optional dependencies
+        if requirements_files['optional'].exists():
+            print("\n🔧 Optional dependencies available (PyTorch, TensorFlow, advanced features)")
+            install_optional = input("Install optional dependencies? (y/N): ").lower() == 'y'
+            if install_optional:
+                print("Installing optional requirements...")
+                subprocess.run([sys.executable, '-m', 'pip', 'install', '-r', 'requirements-optional.txt'],
+                              check=True)
+
+        print("✅ Requirements installed successfully!")
         return True
-        
+
     except subprocess.CalledProcessError as e:
-        print(f"ERROR installing requirements: {e}")
+        print(f"❌ ERROR installing requirements: {e}")
+        print("\n🛠️  TROUBLESHOOTING TIPS:")
+        print("1. Try using Python 3.10 instead of 3.13")
+        print("2. Create a fresh virtual environment")
+        print("3. Use conda instead: conda create -n env_name python=3.10")
+        print("4. Install core requirements only first")
         return False
 
 def setup_memory_optimizations():
@@ -188,44 +248,65 @@ def main():
     print("HACKATHON FORECAST BIG DATA 2025")
     print("ENVIRONMENT SETUP")
     print("=" * 60)
-    
+
+    # Check Python version first
+    python_ok = check_python_version()
+
     # Check system requirements
     sys_info = check_system_requirements()
-    
+
     if not sys_info['meets_requirements']:
         print("\nWARNING: System may not meet minimum requirements!")
         response = input("Continue anyway? (y/N): ")
         if response.lower() != 'y':
             sys.exit(1)
-    
+
+    if not python_ok:
+        print("\n⚠️  Python version warning detected!")
+        print("   Recommendation: Use Python 3.10 for best compatibility")
+        response = input("Continue with current Python version? (y/N): ")
+        if response.lower() != 'y':
+            print("\n💡 To install Python 3.10:")
+            print("   • With pyenv: pyenv install 3.10.12 && pyenv local 3.10.12")
+            print("   • With conda: conda create -n hackathon python=3.10")
+            print("   • Download from: https://www.python.org/downloads/release/python-31012/")
+            sys.exit(1)
+
     # Try conda environment creation
     conda_success = create_conda_env()
-    
+
     # Install requirements
     pip_success = install_requirements()
-    
+
     # Setup optimizations
     setup_memory_optimizations()
-    
+
     # Verify installation
     verification_success = verify_installation()
-    
+
     print("\nSETUP SUMMARY")
     print("=" * 50)
+    print(f"Python Version: {'✓' if python_ok else '⚠'}")
     print(f"System Requirements: {'✓' if sys_info['meets_requirements'] else '⚠'}")
     print(f"Conda Environment: {'✓' if conda_success else '✗'}")
     print(f"Pip Installation: {'✓' if pip_success else '✗'}")
     print(f"Package Verification: {'✓' if verification_success else '✗'}")
-    
+
     if pip_success and verification_success:
-        print("\n🎉 SETUP COMPLETE! Ready for Phase 2!")
+        print("\n🎉 SETUP COMPLETE! Ready for development!")
         print("\nNext steps:")
         if conda_success:
             print("1. conda activate hackathon_forecast_2025")
         print("2. jupyter lab (to start development)")
-        print("3. Run Phase 2 EDA notebooks")
+        print("3. Run notebooks for analysis")
+        print("\n📋 Available requirements:")
+        print("   • requirements.txt - Core dependencies")
+        print("   • requirements-py310.txt - Python 3.10 tested versions")
+        print("   • requirements-optional.txt - Advanced features")
+        print("   • requirements-dev.txt - Development tools")
     else:
         print("\n❌ Setup incomplete. Check errors above.")
+        print("\n🆘 Need help? Check the troubleshooting section in README.md")
 
 if __name__ == "__main__":
     main()
