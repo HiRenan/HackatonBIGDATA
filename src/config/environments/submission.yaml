@@ -1,0 +1,328 @@
+# Phase 7: Submission-Specific Configuration
+# Advanced configuration for strategic submissions and competition management
+
+# =============================================================================
+# SUBMISSION STRATEGY CONFIGURATION
+# =============================================================================
+submission_strategies:
+  baseline:
+    model_config:
+      prophet_config:
+        daily_seasonality: true
+        weekly_seasonality: true
+        yearly_seasonality: true
+        changepoint_prior_scale: 0.05
+    risk_tolerance: low
+    post_processing_enabled: true
+    validation_strategy: simple_holdout
+
+  single_model:
+    model_config:
+      lightgbm_config:
+        num_leaves: 31
+        learning_rate: 0.1
+        feature_fraction: 0.8
+        bagging_fraction: 0.8
+        bagging_freq: 5
+        verbose: -1
+        early_stopping_rounds: 100
+    risk_tolerance: medium
+    post_processing_enabled: true
+    validation_strategy: time_series_cv
+
+  ensemble:
+    model_config:
+      ensemble_config:
+        models: ["lightgbm", "prophet", "tree_ensemble"]
+        ensemble_method: "stacking"
+        meta_learner: "linear_regression"
+    risk_tolerance: medium
+    post_processing_enabled: true
+    validation_strategy: stacking_cv
+
+  optimized_ensemble:
+    model_config:
+      optimized_ensemble_config:
+        models: ["lightgbm", "prophet", "tree_ensemble", "arima"]
+        optimization_method: "optuna"
+        n_trials: 100
+        cv_folds: 5
+    risk_tolerance: high
+    post_processing_enabled: true
+    validation_strategy: leaderboard_cv
+
+  final:
+    model_config:
+      final_config:
+        use_best_model: true
+        ensemble_all_previous: true
+        final_optimization: true
+        max_optimization_time_minutes: 30
+    risk_tolerance: high
+    post_processing_enabled: true
+    validation_strategy: final_validation
+
+# =============================================================================
+# RISK MANAGEMENT CONFIGURATION
+# =============================================================================
+risk_management:
+  enable_overfitting_assessment: true
+  enable_complexity_assessment: true
+  enable_leakage_assessment: true
+  enable_execution_assessment: true
+
+  overfitting_config:
+    max_acceptable_gap: 0.1
+    severe_gap_threshold: 0.2
+    weight: 1.5
+
+  complexity_config:
+    max_safe_features: 1000
+    max_safe_depth: 20
+    max_training_time_minutes: 30
+    weight: 1.0
+
+  leakage_config:
+    suspicious_score_threshold: 0.95
+    weight: 2.0
+
+  execution_config:
+    max_memory_gb: 16
+    max_prediction_time_seconds: 300
+    weight: 1.0
+
+  # Risk level thresholds
+  risk_thresholds:
+    low: 0.3
+    medium: 0.6
+    high: 0.8
+
+# =============================================================================
+# COMPETITIVE ANALYSIS CONFIGURATION
+# =============================================================================
+competitive_analysis:
+  leaderboard_config:
+    top_tier_size: 3
+    contender_tier_size: 10
+    improvement_buffer: 0.05
+
+  timeline_analysis:
+    critical_days_remaining: 3
+    urgent_days_remaining: 7
+    planning_days_remaining: 14
+
+  strategic_positioning:
+    leader_strategy: conservative
+    contender_strategy: aggressive
+    middle_pack_strategy: balanced
+    bottom_tier_strategy: catch_up
+
+# =============================================================================
+# TIMELINE MANAGEMENT CONFIGURATION
+# =============================================================================
+timeline_management:
+  deadline_tracker:
+    upcoming_alert_hours: 24
+    urgent_alert_hours: 6
+    critical_alert_hours: 2
+
+  submission_windows:
+    baseline:
+      day: 3
+      optimal_hour: 18
+      duration_hours: 6
+      priority: low
+      buffer_hours: 2
+
+    single_model:
+      day: 7
+      optimal_hour: 20
+      duration_hours: 12
+      priority: medium
+      buffer_hours: 2
+
+    initial_ensemble:
+      day: 10
+      optimal_hour: 22
+      duration_hours: 24
+      priority: medium
+      buffer_hours: 3
+      dependencies: ["single_model"]
+
+    optimized_ensemble:
+      day: 13
+      optimal_hour: 20
+      duration_hours: 36
+      priority: high
+      buffer_hours: 4
+      dependencies: ["initial_ensemble"]
+
+    final_submission:
+      day: -1  # Last day
+      optimal_hour: 18  # 6 PM with buffer
+      duration_hours: 48
+      priority: critical
+      buffer_hours: 6
+      dependencies: ["optimized_ensemble"]
+
+# =============================================================================
+# POST-PROCESSING CONFIGURATION
+# =============================================================================
+post_processing:
+  business_rules:
+    enabled: true
+    min_value: 0.0
+    max_growth_rate: 2.0
+    enable_seasonality_constraints: true
+    enable_non_negativity: true
+    weight: 1.0
+
+  outlier_capping:
+    enabled: true
+    method: quantile  # quantile, iqr, zscore
+    lower_quantile: 0.005
+    upper_quantile: 0.995
+    iqr_factor: 1.5
+    zscore_threshold: 3.0
+    weight: 0.8
+
+  seasonal_adjustment:
+    enabled: true
+    groupby_columns: ["store_id", "product_id"]
+    seasonal_periods: [7, 30, 365]
+    weight: 0.6
+
+  ensemble_blending:
+    enabled: true
+    smoothing_factor: 0.1
+    blending_method: moving_average  # moving_average, exponential_smoothing, median_filter
+    window_size: 7
+    weight: 0.5
+
+# Competitive post-processing adjustments
+competitive_post_processing:
+  leader_adjustments:
+    business_rules:
+      enable_non_negativity: true
+      max_growth_rate: 1.5  # More conservative
+    outlier_capping:
+      method: quantile
+      upper_quantile: 0.98  # More conservative
+    ensemble_blending:
+      smoothing_factor: 0.05  # Less smoothing
+
+  contender_adjustments:
+    outlier_capping:
+      upper_quantile: 0.995  # Less conservative
+    ensemble_blending:
+      smoothing_factor: 0.15  # More smoothing
+
+  catch_up_adjustments:
+    business_rules:
+      max_growth_rate: 2.5  # More aggressive
+    outlier_capping:
+      upper_quantile: 0.99
+    ensemble_blending:
+      smoothing_factor: 0.2
+
+# =============================================================================
+# SUBMISSION PIPELINE CONFIGURATION
+# =============================================================================
+submission_pipeline:
+  steps:
+    data_validation:
+      enabled: true
+      min_train_size: 1000
+      min_test_size: 100
+
+    model_training:
+      enabled: true
+      timeout_minutes: 60
+
+    risk_assessment:
+      enabled: true
+      max_risk_threshold: 0.8  # Can be overridden per strategy
+
+    competitive_analysis:
+      enabled: true
+      require_leaderboard: false
+
+    post_processing:
+      enabled: true
+
+    submission_execution:
+      enabled: true
+      max_risk_threshold: 0.8
+
+# =============================================================================
+# PERFORMANCE AND MONITORING
+# =============================================================================
+performance:
+  max_memory_usage_gb: 16
+  max_execution_time_minutes: 120
+  enable_performance_monitoring: true
+  enable_resource_alerts: true
+
+monitoring:
+  enable_mlflow_logging: true
+  log_predictions: true
+  log_feature_importance: true
+  log_risk_assessment: true
+  log_competitive_analysis: true
+
+# =============================================================================
+# OUTPUT AND REPORTING
+# =============================================================================
+output:
+  submission_format:
+    required_columns: ["store_id", "product_id", "date", "prediction"]
+    decimal_places: 3
+    compression: false
+
+  reporting:
+    generate_summary_report: true
+    include_risk_analysis: true
+    include_competitive_analysis: true
+    save_intermediate_results: true
+
+# =============================================================================
+# FEATURE FLAGS FOR PHASE 7
+# =============================================================================
+feature_flags:
+  enable_advanced_risk_assessment: true
+  enable_competitive_intelligence: true
+  enable_timeline_management: true
+  enable_advanced_post_processing: true
+  enable_final_optimization: true
+  enable_submission_validation: true
+
+# =============================================================================
+# COMPETITION-SPECIFIC SETTINGS
+# =============================================================================
+competition:
+  name: "Hackathon Forecast 2025"
+  primary_metric: "wmape"
+  metric_direction: "minimize"  # lower is better
+  submission_limit: 5
+  team_size_limit: 5
+
+  # Target performance levels
+  performance_targets:
+    excellent_wmape: 15.0
+    good_wmape: 20.0
+    acceptable_wmape: 30.0
+
+  # Competition phases
+  phases:
+    exploration:
+      days: 5
+      focus: "data_understanding"
+    development:
+      days: 7
+      focus: "model_development"
+    optimization:
+      days: 3
+      focus: "performance_optimization"
+    final:
+      days: 1
+      focus: "final_submission"

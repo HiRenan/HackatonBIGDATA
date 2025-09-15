@@ -1,0 +1,333 @@
+# Development Environment Configuration for Submissions
+# Optimized for rapid prototyping and testing
+
+# =============================================================================
+# DEVELOPMENT SUBMISSION STRATEGY CONFIGURATION
+# =============================================================================
+submission_strategies:
+  baseline:
+    model_config:
+      prophet_config:
+        daily_seasonality: true
+        weekly_seasonality: true
+        yearly_seasonality: false  # Faster for development
+        changepoint_prior_scale: 0.1
+        n_changepoints: 10  # Reduced for speed
+    risk_tolerance: low
+    post_processing_enabled: true
+    validation_strategy: simple_holdout
+
+  single_model:
+    model_config:
+      lightgbm_config:
+        num_leaves: 15  # Reduced for faster training
+        learning_rate: 0.2  # Faster convergence
+        feature_fraction: 0.8
+        bagging_fraction: 0.8
+        bagging_freq: 5
+        verbose: -1
+        early_stopping_rounds: 50  # Reduced for speed
+        n_estimators: 100  # Reduced for development
+    risk_tolerance: medium
+    post_processing_enabled: true
+    validation_strategy: time_series_cv
+
+  ensemble:
+    model_config:
+      ensemble_config:
+        models: ["lightgbm", "prophet"]  # Reduced for speed
+        ensemble_method: "averaging"  # Simpler than stacking
+        meta_learner: "linear_regression"
+    risk_tolerance: medium
+    post_processing_enabled: true
+    validation_strategy: simple_cv
+
+  optimized_ensemble:
+    model_config:
+      optimized_ensemble_config:
+        models: ["lightgbm", "prophet"]
+        optimization_method: "grid_search"  # Faster than optuna for dev
+        n_trials: 10  # Much reduced for development
+        cv_folds: 3  # Reduced for speed
+    risk_tolerance: high
+    post_processing_enabled: true
+    validation_strategy: simple_cv
+
+  final:
+    model_config:
+      final_config:
+        use_best_model: true
+        ensemble_all_previous: false  # Skip for development
+        final_optimization: false  # Skip for development
+        max_optimization_time_minutes: 5  # Much reduced
+    risk_tolerance: high
+    post_processing_enabled: true
+    validation_strategy: simple_holdout
+
+# =============================================================================
+# DEVELOPMENT RISK MANAGEMENT CONFIGURATION
+# =============================================================================
+risk_management:
+  enable_overfitting_assessment: true
+  enable_complexity_assessment: true
+  enable_leakage_assessment: true
+  enable_execution_assessment: false  # Skip for development speed
+
+  overfitting_config:
+    max_acceptable_gap: 0.15  # More lenient for development
+    severe_gap_threshold: 0.3
+    weight: 1.0
+
+  complexity_config:
+    max_safe_features: 200  # Reduced for development
+    max_safe_depth: 10
+    max_training_time_minutes: 10  # Reduced for development
+    weight: 0.5  # Less weight in development
+
+  leakage_config:
+    suspicious_score_threshold: 0.98  # More lenient
+    weight: 1.5
+
+  # Risk level thresholds - more lenient for development
+  risk_thresholds:
+    low: 0.4
+    medium: 0.7
+    high: 0.9
+
+# =============================================================================
+# DEVELOPMENT COMPETITIVE ANALYSIS CONFIGURATION
+# =============================================================================
+competitive_analysis:
+  leaderboard_config:
+    top_tier_size: 3
+    contender_tier_size: 10
+    improvement_buffer: 0.1  # More lenient
+
+  timeline_analysis:
+    critical_days_remaining: 1
+    urgent_days_remaining: 3
+    planning_days_remaining: 7
+
+  strategic_positioning:
+    leader_strategy: balanced  # Less conservative in dev
+    contender_strategy: balanced
+    middle_pack_strategy: balanced
+    bottom_tier_strategy: balanced
+
+# =============================================================================
+# DEVELOPMENT TIMELINE MANAGEMENT CONFIGURATION
+# =============================================================================
+timeline_management:
+  deadline_tracker:
+    upcoming_alert_hours: 12  # Shorter alerts for development
+    urgent_alert_hours: 3
+    critical_alert_hours: 1
+
+  submission_windows:
+    baseline:
+      day: 1
+      optimal_hour: 12
+      duration_hours: 2
+      priority: low
+      buffer_hours: 1
+
+    single_model:
+      day: 2
+      optimal_hour: 12
+      duration_hours: 3
+      priority: medium
+      buffer_hours: 1
+
+    initial_ensemble:
+      day: 3
+      optimal_hour: 12
+      duration_hours: 4
+      priority: medium
+      buffer_hours: 1
+      dependencies: ["single_model"]
+
+    optimized_ensemble:
+      day: 4
+      optimal_hour: 12
+      duration_hours: 6
+      priority: high
+      buffer_hours: 1
+      dependencies: ["initial_ensemble"]
+
+    final_submission:
+      day: 5
+      optimal_hour: 12
+      duration_hours: 8
+      priority: critical
+      buffer_hours: 2
+      dependencies: ["optimized_ensemble"]
+
+# =============================================================================
+# DEVELOPMENT POST-PROCESSING CONFIGURATION
+# =============================================================================
+post_processing:
+  business_rules:
+    enabled: true
+    min_value: 0.0
+    max_growth_rate: 3.0  # More lenient for development
+    enable_seasonality_constraints: false  # Skip for speed
+    enable_non_negativity: true
+    weight: 0.8
+
+  outlier_capping:
+    enabled: true
+    method: quantile
+    lower_quantile: 0.01  # More aggressive for development testing
+    upper_quantile: 0.99
+    iqr_factor: 2.0  # More lenient
+    zscore_threshold: 4.0
+    weight: 0.6
+
+  seasonal_adjustment:
+    enabled: false  # Skip for development speed
+
+  ensemble_blending:
+    enabled: true
+    smoothing_factor: 0.2  # More aggressive
+    blending_method: moving_average
+    window_size: 3  # Smaller window
+    weight: 0.3
+
+# =============================================================================
+# DEVELOPMENT SUBMISSION PIPELINE CONFIGURATION
+# =============================================================================
+submission_pipeline:
+  steps:
+    data_validation:
+      enabled: true
+      min_train_size: 100  # Much reduced for development
+      min_test_size: 10
+
+    model_training:
+      enabled: true
+      timeout_minutes: 10  # Reduced for development
+
+    risk_assessment:
+      enabled: true
+      max_risk_threshold: 0.9  # More lenient
+
+    competitive_analysis:
+      enabled: true
+      require_leaderboard: false
+
+    post_processing:
+      enabled: true
+
+    submission_execution:
+      enabled: false  # Usually disabled in development
+
+# =============================================================================
+# DEVELOPMENT PERFORMANCE AND MONITORING
+# =============================================================================
+performance:
+  max_memory_usage_gb: 8  # Reduced for development environments
+  max_execution_time_minutes: 30  # Reduced for development
+  enable_performance_monitoring: true
+  enable_resource_alerts: false  # Less important in development
+
+monitoring:
+  enable_mlflow_logging: true
+  log_predictions: false  # Skip for development speed
+  log_feature_importance: true
+  log_risk_assessment: true
+  log_competitive_analysis: false  # Skip for development speed
+
+# =============================================================================
+# DEVELOPMENT OUTPUT AND REPORTING
+# =============================================================================
+output:
+  submission_format:
+    required_columns: ["store_id", "product_id", "date", "prediction"]
+    decimal_places: 2  # Reduced precision for development
+    compression: false
+
+  reporting:
+    generate_summary_report: true
+    include_risk_analysis: true
+    include_competitive_analysis: false  # Skip for development speed
+    save_intermediate_results: false  # Skip for development speed
+
+# =============================================================================
+# DEVELOPMENT FEATURE FLAGS
+# =============================================================================
+feature_flags:
+  enable_advanced_risk_assessment: false  # Simplified for development
+  enable_competitive_intelligence: true
+  enable_timeline_management: true
+  enable_advanced_post_processing: false  # Simplified for development
+  enable_final_optimization: false  # Skip for development
+  enable_submission_validation: true
+
+# =============================================================================
+# DEVELOPMENT COMPETITION-SPECIFIC SETTINGS
+# =============================================================================
+competition:
+  name: "Hackathon Forecast 2025 - Development"
+  primary_metric: "wmape"
+  metric_direction: "minimize"
+  submission_limit: 10  # More submissions allowed in development
+  team_size_limit: 5
+
+  # More lenient performance targets for development
+  performance_targets:
+    excellent_wmape: 20.0
+    good_wmape: 25.0
+    acceptable_wmape: 35.0
+
+  # Shortened phases for development
+  phases:
+    exploration:
+      days: 1
+      focus: "data_understanding"
+    development:
+      days: 2
+      focus: "model_development"
+    optimization:
+      days: 1
+      focus: "performance_optimization"
+    final:
+      days: 1
+      focus: "final_submission"
+
+# =============================================================================
+# DEVELOPMENT-SPECIFIC SETTINGS
+# =============================================================================
+development:
+  # Data sampling for faster development
+  data_sampling:
+    enable_sampling: true
+    sample_size: 50000  # Reduced dataset size
+    random_seed: 42
+
+  # Faster model configurations
+  quick_models:
+    lightgbm_quick:
+      num_leaves: 10
+      learning_rate: 0.3
+      n_estimators: 50
+      early_stopping_rounds: 20
+
+    prophet_quick:
+      daily_seasonality: false
+      weekly_seasonality: true
+      yearly_seasonality: false
+      n_changepoints: 5
+
+  # Development utilities
+  debug:
+    enable_detailed_logging: true
+    log_level: "DEBUG"
+    enable_profiling: false
+    save_debug_artifacts: true
+
+  # Testing configurations
+  testing:
+    mock_leaderboard: true
+    mock_competition_data: true
+    skip_external_apis: true
+    fast_validation: true

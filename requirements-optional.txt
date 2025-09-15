@@ -1,0 +1,28 @@
+# Optional Requirements - Advanced Features
+# Install only if you need deep learning capabilities
+
+# Deep Learning (choose one or both)
+# PyTorch (recommended for LSTM models)
+torch>=2.0.0; sys_platform != "darwin" or platform_machine != "arm64"
+torch>=2.0.0; sys_platform == "darwin" and platform_machine == "arm64"
+
+# TensorFlow (alternative for neural networks)
+# tensorflow>=2.13.0; python_version < "3.12"
+
+# Advanced Time Series
+pmdarima>=2.0.0
+sktime>=0.21.0
+
+# Hyperparameter Optimization
+optuna>=3.3.0
+hyperopt>=0.2.7
+
+# Experiment Tracking (alternative)
+wandb>=0.15.0
+
+# Performance Monitoring
+memory-profiler>=0.60.0
+py-spy>=0.3.14
+
+# Advanced Processing
+dask[complete]>=2023.5.0

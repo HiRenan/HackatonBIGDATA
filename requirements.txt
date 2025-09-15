@@ -1,0 +1,41 @@
+# Hackathon Forecast Big Data 2025 - Main Requirements
+# Core dependencies with flexible versions for better compatibility
+# For specific Python versions, see requirements-py310.txt
+
+# Installation Instructions:
+# Basic: pip install -r requirements.txt
+# Full:  pip install -r requirements.txt -r requirements-optional.txt
+# Dev:   pip install -r requirements.txt -r requirements-dev.txt
+
+# Core Data Processing
+pandas>=2.0.0,<3.0.0
+pyarrow>=12.0.0
+numpy>=1.24.0,<2.0.0
+
+# Machine Learning - Essential Models
+lightgbm>=4.0.0
+scikit-learn>=1.3.0
+prophet>=1.1.0
+
+# Time Series & Statistics
+statsmodels>=0.14.0
+
+# Experiment Tracking
+mlflow>=2.5.0
+
+# Data Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.15.0
+
+# Utilities
+tqdm>=4.65.0
+joblib>=1.3.0
+psutil>=5.9.0
+jupyter>=1.0.0
+ipykernel>=6.20.0
+
+# Note: For advanced features (PyTorch, TensorFlow, Optuna),
+# install requirements-optional.txt
+# For development tools (pytest, black, etc.),
+# install requirements-dev.txt

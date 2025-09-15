@@ -1,0 +1,93 @@
+# Phase 6: Development Environment Configuration
+# Development-specific overrides
+
+environment: "development"
+debug_mode: true
+
+# Database Configuration (Development)
+database:
+  host: "localhost"
+  ssl_mode: "disable"
+  max_connections: 10
+
+# MLflow Configuration (Development)
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "hackathon_forecast_dev"
+  enable_system_metrics: true
+
+# Logging Configuration (Development)
+logging:
+  level: "DEBUG"
+  enable_file_logging: true
+  enable_structured_logging: false
+
+# Security Configuration (Development)
+security:
+  enable_api_key_auth: false
+  enable_rate_limiting: false
+  enable_cors: true
+  allowed_origins:
+    - "http://localhost:3000"
+    - "http://localhost:8080"
+    - "http://localhost:8888"  # Jupyter
+
+# Data Configuration (Development)
+data:
+  chunk_size: 50000    # Smaller chunks for development
+  max_memory_usage_gb: 4.0
+  cache_enabled: true
+
+# Model Configuration (Development)
+models:
+  max_training_time: 1800  # 30 minutes for development
+  auto_hyperparameter_tuning: false  # Disable for faster development
+
+  lightgbm_config:
+    n_estimators: 100    # Reduced for faster training
+    learning_rate: 0.1
+
+# Monitoring Configuration (Development)
+monitoring:
+  enable_monitoring: true
+  metrics_collection_interval: 30
+  enable_email_alerts: false
+
+# Feature Flags (Development)
+feature_flags:
+  enable_phase5_models: true
+  enable_bayesian_calibration: false  # Disable for faster development
+  enable_business_rules: true
+  enable_real_time_inference: false
+  enable_model_explanability: true
+  enable_drift_detection: false  # Disable for development
+  enable_advanced_ensemble: true
+  enable_lstm_models: false  # Disable resource-intensive models
+  enable_arima_models: false
+
+# Validation Configuration (Development)
+validation:
+  n_splits: 3  # Reduced for faster validation
+  test_size: 0.3
+
+# Performance Configuration (Development)
+performance:
+  enable_parallel_processing: false  # Easier debugging
+  max_workers: 2
+  memory_limit_gb: 6.0
+  enable_gpu: false
+
+# Pipeline Configuration (Development)
+pipeline:
+  enable_rollback: true
+  enable_checkpoints: false  # Disable for faster development
+  max_pipeline_duration: 1800  # 30 minutes
+
+# Development-specific settings
+development:
+  enable_hot_reload: true
+  enable_debug_toolbar: true
+  enable_profiling: true
+  sample_data_size: 100000  # Use smaller datasets
+  fast_mode: true
+  skip_expensive_operations: true

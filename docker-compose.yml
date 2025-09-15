@@ -1,0 +1,205 @@
+# Phase 6: Docker Compose for Development and Production
+version: '3.8'
+
+services:
+  # Main application service
+  forecast-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_DATE: ${BUILD_DATE:-}
+        VCS_REF: ${VCS_REF:-}
+    container_name: hackathon-forecast-app
+    restart: unless-stopped
+    environment:
+      - FORECAST_ENV=${ENVIRONMENT:-development}
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=${POSTGRES_DB:-forecast_db}
+      - DB_USER=${POSTGRES_USER:-forecast_user}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-forecast_password}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./models:/app/models
+      - ./submissions:/app/submissions
+    ports:
+      - "8000:8000"
+      - "8888:8888"  # Jupyter
+    networks:
+      - forecast-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mlflow:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # MLflow tracking server
+  mlflow:
+    image: python:3.10-slim
+    container_name: hackathon-mlflow
+    restart: unless-stopped
+    environment:
+      - MLFLOW_BACKEND_STORE_URI=postgresql://${POSTGRES_USER:-forecast_user}:${POSTGRES_PASSWORD:-forecast_password}@postgres:5432/${POSTGRES_DB:-forecast_db}
+      - MLFLOW_DEFAULT_ARTIFACT_ROOT=/mlflow/artifacts
+    volumes:
+      - mlflow-artifacts:/mlflow/artifacts
+      - ./mlruns:/mlflow/mlruns
+    ports:
+      - "5000:5000"
+    networks:
+      - forecast-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      bash -c "
+        pip install mlflow psycopg2-binary &&
+        mlflow server
+          --backend-store-uri postgresql://${POSTGRES_USER:-forecast_user}:${POSTGRES_PASSWORD:-forecast_password}@postgres:5432/${POSTGRES_DB:-forecast_db}
+          --default-artifact-root /mlflow/artifacts
+          --host 0.0.0.0
+          --port 5000
+      "
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # PostgreSQL database
+  postgres:
+    image: postgres:15-alpine
+    container_name: hackathon-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-forecast_db}
+      - POSTGRES_USER=${POSTGRES_USER:-forecast_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-forecast_password}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - forecast-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-forecast_user} -d ${POSTGRES_DB:-forecast_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Redis for caching and job queues
+  redis:
+    image: redis:7-alpine
+    container_name: hackathon-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - forecast-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Monitoring dashboard (Streamlit)
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hackathon-dashboard
+    restart: unless-stopped
+    environment:
+      - FORECAST_ENV=${ENVIRONMENT:-development}
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    volumes:
+      - ./logs:/app/logs
+    ports:
+      - "8501:8501"  # Streamlit default port
+    networks:
+      - forecast-network
+    depends_on:
+      - forecast-app
+      - mlflow
+    command: >
+      bash -c "
+        pip install streamlit &&
+        streamlit run src/monitoring/dashboard.py --server.port 8501 --server.address 0.0.0.0
+      "
+
+  # Nginx reverse proxy (production)
+  nginx:
+    image: nginx:alpine
+    container_name: hackathon-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    networks:
+      - forecast-network
+    depends_on:
+      - forecast-app
+      - dashboard
+    profiles:
+      - production
+
+  # Jupyter Lab for development
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hackathon-jupyter
+    restart: unless-stopped
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=${JUPYTER_TOKEN:-hackathon2025}
+    volumes:
+      - ./notebooks:/app/notebooks
+      - ./data:/app/data
+      - ./src:/app/src
+    ports:
+      - "8888:8888"
+    networks:
+      - forecast-network
+    profiles:
+      - development
+    command: >
+      bash -c "
+        pip install jupyterlab &&
+        jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=${JUPYTER_TOKEN:-hackathon2025}
+      "
+
+# Networks
+networks:
+  forecast-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# Volumes
+volumes:
+  postgres-data:
+    driver: local
+  mlflow-artifacts:
+    driver: local
+  redis-data:
+    driver: local
