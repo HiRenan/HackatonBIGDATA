@@ -26,20 +26,30 @@ def setup_logging(log_level: str) -> logging.Logger:
     """Setup logging for script"""
     return setup_logger("validate_submission", level=log_level, performance=True)
 
-def load_submission_file(file_path: str) -> pd.DataFrame:
+def load_submission_file(file_path: str, hackathon_format: bool = False) -> pd.DataFrame:
     """Load and validate submission file format"""
     logger = logging.getLogger("validate_submission")
 
     try:
         # Try different formats
         if file_path.endswith('.csv'):
-            submission = pd.read_csv(file_path)
+            if hackathon_format:
+                # Try semicolon separator for hackathon format
+                try:
+                    submission = pd.read_csv(file_path, sep=';', encoding='utf-8')
+                except:
+                    submission = pd.read_csv(file_path)
+            else:
+                submission = pd.read_csv(file_path)
         elif file_path.endswith('.parquet'):
             submission = pd.read_parquet(file_path)
         else:
             # Try CSV first
             try:
-                submission = pd.read_csv(file_path)
+                if hackathon_format:
+                    submission = pd.read_csv(file_path, sep=';', encoding='utf-8')
+                else:
+                    submission = pd.read_csv(file_path)
             except:
                 submission = pd.read_parquet(file_path)
 
@@ -51,12 +61,16 @@ def load_submission_file(file_path: str) -> pd.DataFrame:
         raise
 
 def validate_submission_format(submission: pd.DataFrame,
-                              required_columns: List[str] = None) -> Dict[str, Any]:
+                              required_columns: List[str] = None,
+                              hackathon_format: bool = False) -> Dict[str, Any]:
     """Validate submission format requirements"""
     logger = logging.getLogger("validate_submission")
 
     if required_columns is None:
-        required_columns = ["store_id", "product_id", "date", "prediction"]
+        if hackathon_format:
+            required_columns = ["semana", "pdv", "produto", "quantidade"]
+        else:
+            required_columns = ["store_id", "product_id", "date", "prediction"]
 
     validation_result = {
         'format_valid': True,
@@ -65,7 +79,7 @@ def validate_submission_format(submission: pd.DataFrame,
         'stats': {}
     }
 
-    logger.info("🔍 Validating submission format")
+    logger.info("[CHECK] Validating submission format")
 
     # Check required columns
     missing_columns = [col for col in required_columns if col not in submission.columns]
@@ -79,10 +93,33 @@ def validate_submission_format(submission: pd.DataFrame,
         validation_result['warnings'].append(f"Extra columns found: {extra_columns}")
 
     # Check data types
-    if 'prediction' in submission.columns:
-        if not pd.api.types.is_numeric_dtype(submission['prediction']):
-            validation_result['format_valid'] = False
-            validation_result['issues'].append("Prediction column is not numeric")
+    if hackathon_format:
+        # Hackathon specific validations
+        for col in required_columns:
+            if col in submission.columns:
+                if not pd.api.types.is_integer_dtype(submission[col]):
+                    validation_result['format_valid'] = False
+                    validation_result['issues'].append(f"Column {col} should be integer type")
+
+        # Check value ranges for hackathon format
+        if 'semana' in submission.columns:
+            invalid_weeks = ~submission['semana'].between(1, 5)
+            if invalid_weeks.any():
+                validation_result['format_valid'] = False
+                validation_result['issues'].append(f"Invalid week values: must be 1-5, found {submission.loc[invalid_weeks, 'semana'].unique()}")
+
+        if 'quantidade' in submission.columns:
+            negative_quantities = submission['quantidade'] < 0
+            if negative_quantities.any():
+                validation_result['format_valid'] = False
+                validation_result['issues'].append(f"Negative quantities found: {negative_quantities.sum():,} rows")
+
+    else:
+        # Standard format validations
+        if 'prediction' in submission.columns:
+            if not pd.api.types.is_numeric_dtype(submission['prediction']):
+                validation_result['format_valid'] = False
+                validation_result['issues'].append("Prediction column is not numeric")
 
     # Check for missing values
     missing_values = submission.isnull().sum()
@@ -100,33 +137,63 @@ def validate_submission_format(submission: pd.DataFrame,
             validation_result['issues'].append(f"Duplicate rows found: {duplicates:,}")
 
     # Basic statistics
-    if 'prediction' in submission.columns:
-        pred_stats = submission['prediction'].describe()
-        validation_result['stats']['prediction'] = {
+    target_col = 'quantidade' if hackathon_format else 'prediction'
+    if target_col in submission.columns:
+        pred_stats = submission[target_col].describe()
+        validation_result['stats'][target_col] = {
             'count': int(pred_stats['count']),
             'mean': float(pred_stats['mean']),
             'std': float(pred_stats['std']),
             'min': float(pred_stats['min']),
             'max': float(pred_stats['max']),
-            'negative_count': int((submission['prediction'] < 0).sum()),
-            'zero_count': int((submission['prediction'] == 0).sum())
+            'negative_count': int((submission[target_col] < 0).sum()),
+            'zero_count': int((submission[target_col] == 0).sum())
         }
 
         # Check for negative predictions
-        negative_count = (submission['prediction'] < 0).sum()
+        negative_count = (submission[target_col] < 0).sum()
         if negative_count > 0:
-            validation_result['warnings'].append(f"Negative predictions found: {negative_count:,}")
+            validation_result['warnings'].append(f"Negative {target_col} found: {negative_count:,}")
 
-        # Check for extreme values
-        q99 = submission['prediction'].quantile(0.99)
-        q01 = submission['prediction'].quantile(0.01)
-        extreme_high = (submission['prediction'] > q99 * 10).sum()
-        extreme_low = (submission['prediction'] < q01 / 10).sum()
+    # Add hackathon specific statistics
+    if hackathon_format:
+        if 'semana' in submission.columns:
+            validation_result['stats']['semana'] = {
+                'min': int(submission['semana'].min()),
+                'max': int(submission['semana'].max()),
+                'unique_count': int(submission['semana'].nunique())
+            }
 
-        if extreme_high > 0:
-            validation_result['warnings'].append(f"Extremely high predictions (>10x Q99): {extreme_high:,}")
-        if extreme_low > 0:
-            validation_result['warnings'].append(f"Extremely low predictions (<Q01/10): {extreme_low:,}")
+        if 'pdv' in submission.columns:
+            validation_result['stats']['pdv'] = {
+                'unique_count': int(submission['pdv'].nunique()),
+                'min': int(submission['pdv'].min()),
+                'max': int(submission['pdv'].max())
+            }
+
+        if 'produto' in submission.columns:
+            validation_result['stats']['produto'] = {
+                'unique_count': int(submission['produto'].nunique()),
+                'min': int(submission['produto'].min()),
+                'max': int(submission['produto'].max())
+            }
+
+        # Check for extreme values (only for non-hackathon format)
+        if 'quantidade' in submission.columns:
+            target_col = 'quantidade'
+        else:
+            target_col = 'prediction'
+
+        if target_col in submission.columns:
+            q99 = submission[target_col].quantile(0.99)
+            q01 = submission[target_col].quantile(0.01)
+            extreme_high = (submission[target_col] > q99 * 10).sum()
+            extreme_low = (submission[target_col] < q01 / 10).sum()
+
+            if extreme_high > 0:
+                validation_result['warnings'].append(f"Extremely high {target_col} (>10x Q99): {extreme_high:,}")
+            if extreme_low > 0:
+                validation_result['warnings'].append(f"Extremely low {target_col} (<Q01/10): {extreme_low:,}")
 
     validation_result['stats']['total_rows'] = len(submission)
     validation_result['stats']['total_columns'] = len(submission.columns)
@@ -144,7 +211,7 @@ def validate_business_rules(submission: pd.DataFrame) -> Dict[str, Any]:
         'stats': {}
     }
 
-    logger.info("🏢 Validating business rules")
+    logger.info("[BUSINESS] Validating business rules")
 
     if 'prediction' not in submission.columns:
         validation_result['business_valid'] = False
@@ -209,7 +276,7 @@ def calculate_submission_metrics(submission: pd.DataFrame,
         'performance_metrics': {}
     }
 
-    logger.info("📊 Calculating submission metrics")
+    logger.info("[METRICS] Calculating submission metrics")
 
     # Descriptive statistics
     if 'prediction' in submission.columns:
@@ -269,50 +336,51 @@ def generate_validation_report(submission_path: str,
     """Generate comprehensive validation report"""
 
     report_lines = [
-        "📋 SUBMISSION VALIDATION REPORT",
+        "[REPORT] SUBMISSION VALIDATION REPORT",
         "=" * 60,
         "",
         f"File: {submission_path}",
         f"Validation Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
         "",
-        "📊 FORMAT VALIDATION:",
-        f"  Status: {'✅ PASS' if format_validation['format_valid'] else '❌ FAIL'}",
+        "[FORMAT] FORMAT VALIDATION:",
+        f"  Status: {'[PASS]' if format_validation['format_valid'] else '[FAIL]'}",
         f"  Total Rows: {format_validation['stats'].get('total_rows', 'N/A'):,}",
         f"  Total Columns: {format_validation['stats'].get('total_columns', 'N/A')}",
     ]
 
     if format_validation['issues']:
-        report_lines.append("  ❌ Issues:")
+        report_lines.append("  [ISSUES] Issues:")
         for issue in format_validation['issues']:
-            report_lines.append(f"    • {issue}")
+            report_lines.append(f"    - {issue}")
 
     if format_validation['warnings']:
-        report_lines.append("  ⚠️ Warnings:")
+        report_lines.append("  [WARNINGS] Warnings:")
         for warning in format_validation['warnings']:
-            report_lines.append(f"    • {warning}")
+            report_lines.append(f"    - {warning}")
 
     report_lines.extend([
         "",
-        "🏢 BUSINESS RULES VALIDATION:",
-        f"  Status: {'✅ PASS' if business_validation['business_valid'] else '❌ FAIL'}",
+        "[BUSINESS] BUSINESS RULES VALIDATION:",
+        f"  Status: {'[PASS]' if business_validation['business_valid'] else '[FAIL]'}",
     ])
 
     if business_validation['issues']:
-        report_lines.append("  ❌ Issues:")
+        report_lines.append("  [ISSUES] Issues:")
         for issue in business_validation['issues']:
-            report_lines.append(f"    • {issue}")
+            report_lines.append(f"    - {issue}")
 
     if business_validation['warnings']:
-        report_lines.append("  ⚠️ Warnings:")
+        report_lines.append("  [WARNINGS] Warnings:")
         for warning in business_validation['warnings']:
-            report_lines.append(f"    • {warning}")
+            report_lines.append(f"    - {warning}")
 
-    # Prediction statistics
-    if 'prediction' in format_validation['stats']:
-        pred_stats = format_validation['stats']['prediction']
+    # Prediction/Quantidade statistics
+    target_col = 'quantidade' if 'quantidade' in format_validation['stats'] else 'prediction'
+    if target_col in format_validation['stats']:
+        pred_stats = format_validation['stats'][target_col]
         report_lines.extend([
             "",
-            "📈 PREDICTION STATISTICS:",
+            f"[STATS] {target_col.upper()} STATISTICS:",
             f"  Count: {pred_stats['count']:,}",
             f"  Mean: {pred_stats['mean']:.2f}",
             f"  Std: {pred_stats['std']:.2f}",
@@ -327,7 +395,7 @@ def generate_validation_report(submission_path: str,
         perf = metrics['performance_metrics']
         report_lines.extend([
             "",
-            "🎯 PERFORMANCE METRICS:",
+            "[PERFORMANCE] PERFORMANCE METRICS:",
             f"  WMAPE: {perf['wmape']:.2f}%",
             f"  MAE: {perf['mae']:.2f}",
             f"  MAPE: {perf['mape']:.2f}%",
@@ -341,8 +409,8 @@ def generate_validation_report(submission_path: str,
 
     report_lines.extend([
         "",
-        "🎯 OVERALL ASSESSMENT:",
-        f"  Status: {'✅ READY FOR SUBMISSION' if overall_status else '❌ REQUIRES FIXES'}",
+        "[OVERALL] OVERALL ASSESSMENT:",
+        f"  Status: {'[READY] READY FOR SUBMISSION' if overall_status else '[FIXES] REQUIRES FIXES'}",
     ])
 
     if not overall_status:
@@ -388,18 +456,20 @@ def main():
     parser.add_argument("--required-columns", type=str, nargs="+",
                        default=["store_id", "product_id", "date", "prediction"],
                        help="Required columns in submission")
+    parser.add_argument("--hackathon-format", action="store_true",
+                       help="Validate as hackathon format (semana;pdv;produto;quantidade)")
 
     args = parser.parse_args()
 
     # Setup logging
     logger = setup_logging(args.log_level)
 
-    logger.info("🔍 Starting submission validation")
+    logger.info("[START] Starting submission validation")
     logger.info(f"Submission file: {args.submission_file}")
 
     try:
         # Load submission file
-        submission = load_submission_file(args.submission_file)
+        submission = load_submission_file(args.submission_file, args.hackathon_format)
 
         # Load actual data if provided
         actual_data = None
@@ -407,12 +477,19 @@ def main():
             logger.info(f"Loading actual data from {args.actual_data}")
             actual_data = pd.read_csv(args.actual_data) if args.actual_data.endswith('.csv') else pd.read_parquet(args.actual_data)
 
+        # Override required columns for hackathon format
+        if args.hackathon_format:
+            args.required_columns = ["semana", "pdv", "produto", "quantidade"]
+            logger.info("[HACKATHON] Using hackathon format validation")
+
         # Perform validations
-        format_validation = validate_submission_format(submission, args.required_columns)
+        format_validation = validate_submission_format(submission, args.required_columns, args.hackathon_format)
 
         business_validation = {'business_valid': True, 'issues': [], 'warnings': [], 'stats': {}}
-        if not args.skip_business_rules:
+        if not args.skip_business_rules and not args.hackathon_format:
             business_validation = validate_business_rules(submission)
+        elif args.hackathon_format:
+            logger.info("[HACKATHON] Skipping business rules validation for hackathon format")
 
         metrics = calculate_submission_metrics(submission, actual_data)
 
@@ -451,17 +528,17 @@ def main():
         overall_status = format_validation['format_valid'] and business_validation['business_valid']
 
         if overall_status:
-            logger.info("✅ Submission validation completed - READY FOR SUBMISSION")
+            logger.info("[OK] Submission validation completed - READY FOR SUBMISSION")
             return 0
         else:
-            logger.error("❌ Submission validation failed - REQUIRES FIXES")
+            logger.error("[FAIL] Submission validation failed - REQUIRES FIXES")
             return 1
 
     except KeyboardInterrupt:
-        logger.info("❌ Validation interrupted by user")
+        logger.info("[INTERRUPT] Validation interrupted by user")
         return 1
     except Exception as e:
-        logger.error(f"❌ Validation failed with error: {str(e)}")
+        logger.error(f"[ERROR] Validation failed with error: {str(e)}")
         logger.debug("Full error traceback:", exc_info=True)
         return 1
 

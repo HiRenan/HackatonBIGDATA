@@ -10,12 +10,13 @@
 # Core Data Processing
 pandas>=2.0.0,<3.0.0
 pyarrow>=12.0.0
-numpy>=1.24.0,<2.0.0
+numpy>=1.24.0,<2.3.0
 
 # Machine Learning - Essential Models
 lightgbm>=4.0.0
 scikit-learn>=1.3.0
 prophet>=1.1.0
+numba>=0.58.0
 
 # Time Series & Statistics
 statsmodels>=0.14.0

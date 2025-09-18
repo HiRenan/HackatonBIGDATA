@@ -28,6 +28,77 @@ from src.data.loaders import load_competition_data
 from src.utils.logging import setup_logger
 from src.utils.config import get_config_manager
 
+def convert_to_hackathon_format(predictions_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Convert standard prediction format to hackathon format
+
+    Standard: store_id, product_id, date, prediction
+    Hackathon: semana, pdv, produto, quantidade
+    """
+    logger = logging.getLogger("final_submission")
+
+    logger.info("Converting to hackathon format...")
+
+    # Copy the dataframe
+    df = predictions_df.copy()
+
+    # Convert date to week number (assuming January 2023, weeks 1-5)
+    if 'date' in df.columns:
+        df['date'] = pd.to_datetime(df['date'])
+        # Calculate week number from start of January 2023
+        start_date = pd.Timestamp('2023-01-02')  # First Monday of 2023
+        df['semana'] = ((df['date'] - start_date).dt.days // 7) + 1
+        # Ensure weeks are 1-5
+        df['semana'] = df['semana'].clip(1, 5)
+    else:
+        # If no date column, assign sequential weeks
+        logger.warning("No date column found, assigning sequential weeks")
+        df['semana'] = 1
+
+    # Map column names
+    column_mapping = {
+        'store_id': 'pdv',
+        'internal_store_id': 'pdv',
+        'product_id': 'produto',
+        'internal_product_id': 'produto',
+        'prediction': 'quantidade',
+        'quantity': 'quantidade'
+    }
+
+    # Apply mapping
+    for old_col, new_col in column_mapping.items():
+        if old_col in df.columns:
+            df[new_col] = df[old_col]
+
+    # Ensure required columns exist
+    required_cols = ['semana', 'pdv', 'produto', 'quantidade']
+    for col in required_cols:
+        if col not in df.columns:
+            logger.error(f"Required column {col} not found after conversion")
+            # Provide defaults
+            if col == 'semana':
+                df[col] = 1
+            elif col in ['pdv', 'produto']:
+                df[col] = 1
+            elif col == 'quantidade':
+                df[col] = 0
+
+    # Select only required columns and ensure integer types
+    hackathon_df = df[required_cols].copy()
+
+    for col in required_cols:
+        hackathon_df[col] = hackathon_df[col].fillna(0).astype(int)
+
+    # Ensure non-negative quantities
+    hackathon_df['quantidade'] = hackathon_df['quantidade'].clip(lower=0)
+
+    logger.info(f"Converted {len(hackathon_df)} predictions to hackathon format")
+    logger.info(f"Weeks range: {hackathon_df['semana'].min()}-{hackathon_df['semana'].max()}")
+    logger.info(f"Unique PDVs: {hackathon_df['pdv'].nunique()}")
+    logger.info(f"Unique products: {hackathon_df['produto'].nunique()}")
+
+    return hackathon_df
+
 def setup_logging(log_level: str) -> logging.Logger:
     """Setup logging for script"""
     return setup_logger("final_submission", level=log_level, performance=True)
@@ -333,12 +404,25 @@ def save_final_submission(submission_result: Dict[str, Any],
         if submission_result['final_submission']:
             predictions = submission_result['final_submission'].predictions
 
-            # Competition format
-            submission_file = output_path / f"FINAL_SUBMISSION_{team_name}_{timestamp}.csv"
-            predictions.to_csv(submission_file, index=False)
-            files_created['submission'] = str(submission_file)
+            # Check if hackathon format is requested
+            hackathon_format = config.get('hackathon_format', False)
 
-            logger.info(f"💾 Final submission saved: {submission_file}")
+            if hackathon_format:
+                # Convert to hackathon format: semana;pdv;produto;quantidade
+                hackathon_predictions = convert_to_hackathon_format(predictions)
+
+                submission_file = output_path / f"HACKATHON_SUBMISSION_{team_name}_{timestamp}.csv"
+                hackathon_predictions.to_csv(submission_file, sep=';', index=False, encoding='utf-8')
+
+                logger.info(f"[HACKATHON] Submission saved: {submission_file}")
+                logger.info(f"[HACKATHON] Format: semana;pdv;produto;quantidade")
+            else:
+                # Standard competition format
+                submission_file = output_path / f"FINAL_SUBMISSION_{team_name}_{timestamp}.csv"
+                predictions.to_csv(submission_file, index=False)
+                logger.info(f"[STANDARD] Final submission saved: {submission_file}")
+
+            files_created['submission'] = str(submission_file)
 
         # Save detailed results
         results_file = output_path / f"final_submission_results_{timestamp}.json"
@@ -467,6 +551,8 @@ def main():
                        help="Logging level")
     parser.add_argument("--force", action="store_true",
                        help="Force submission generation even with high risk")
+    parser.add_argument("--hackathon-format", action="store_true",
+                       help="Generate submission in hackathon format (semana;pdv;produto;quantidade)")
 
     args = parser.parse_args()
 
@@ -487,8 +573,13 @@ def main():
 
         # Override for sample size (with warning)
         if args.sample_size:
-            logger.warning(f"🚨 Using sample size {args.sample_size:,} - NOT RECOMMENDED FOR FINAL SUBMISSION")
+            logger.warning(f"[WARNING] Using sample size {args.sample_size:,} - NOT RECOMMENDED FOR FINAL SUBMISSION")
             config.setdefault('data_loading', {})['sample_size'] = args.sample_size
+
+        # Set hackathon format flag
+        if args.hackathon_format:
+            logger.info("[HACKATHON] Generating submission in hackathon format")
+            config['hackathon_format'] = True
 
         # Load all competition data
         train_data, test_data, products, stores = load_all_data(args.data_path, args.sample_size)

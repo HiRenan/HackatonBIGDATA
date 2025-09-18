@@ -292,7 +292,14 @@ def load_competition_data(data_path: Union[str, Path],
 
 if __name__ == "__main__":
     # Demo usage
-    print("📁 Data Loaders Demo")
+    import os
+    if os.name == 'nt':  # Windows
+        try:
+            os.system('chcp 65001 > nul 2>&1')
+        except:
+            pass
+
+    print("Data Loaders Demo")
     print("=" * 50)
 
     # Test with sample configuration
@@ -303,13 +310,13 @@ if __name__ == "__main__":
 
     # Create loaders
     trans_loader = DataLoaderFactory.create_loader('transaction', config)
-    print(f"✅ Created transaction loader: {trans_loader.__class__.__name__}")
+    print(f"Created transaction loader: {trans_loader.__class__.__name__}")
 
     prod_loader = DataLoaderFactory.create_loader('product', config)
-    print(f"✅ Created product loader: {prod_loader.__class__.__name__}")
+    print(f"Created product loader: {prod_loader.__class__.__name__}")
 
     store_loader = DataLoaderFactory.create_loader('store', config)
-    print(f"✅ Created store loader: {store_loader.__class__.__name__}")
+    print(f"Created store loader: {store_loader.__class__.__name__}")
 
-    print("\n🏭 Factory pattern working correctly!")
+    print("\nFactory pattern working correctly!")
     print("Ready to load competition data with optimized memory usage.")

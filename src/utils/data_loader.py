@@ -170,18 +170,18 @@ class OptimizedDataLoader:
     
     def load_pdvs(self) -> pd.DataFrame:
         """Load PDV (store) data"""
-        
+
         # Find PDV file (smallest file)
         pdv_files = list(self.data_path.glob("*.parquet"))
         if pdv_files:
             # Smallest file should be PDVs
             smallest_file = min(pdv_files, key=lambda f: f.stat().st_size)
             print(f"Loading PDV data from: {smallest_file.name}")
-            
+
             df = pd.read_parquet(smallest_file)
             df = self._optimize_dtypes(df)
             return df
-        
+
         raise FileNotFoundError("PDV data file not found")
     
     def _optimize_dtypes(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -311,7 +311,7 @@ def load_data_efficiently(data_path: str = "data/raw",
     print(f"- Products: {prod_df.shape} ({prod_df.memory_usage(deep=True).sum()/(1024**2):.1f} MB)")
     
     if enable_joins:
-        print(f"\n🔧 APPLYING LEFT JOINS TO PRESERVE ALL TRANSACTIONS...")
+        print(f"\n[JOIN] APPLYING LEFT JOINS TO PRESERVE ALL TRANSACTIONS...")
         trans_df = apply_left_joins_safely(trans_df, prod_df, pdv_df, validate_loss=validate_loss)
     
     return trans_df, prod_df, pdv_df
@@ -429,14 +429,14 @@ def apply_left_joins_safely(trans_df: pd.DataFrame,
         
         # CRITICAL: Check for data loss
         if final_count != initial_count:
-            raise ValueError(f"🚨 CRITICAL: LOST {initial_count - final_count} TRANSACTIONS! This will break WMAPE!")
+            raise ValueError(f"[CRITICAL] LOST {initial_count - final_count} TRANSACTIONS! This will break WMAPE!")
         
         if 'quantity' in enriched_df.columns:
             volume_diff = abs(final_volume - initial_volume)
             if volume_diff > 0.01:  # Allow tiny floating point errors
-                raise ValueError(f"🚨 CRITICAL: LOST {volume_diff:,.0f} VOLUME! This will break WMAPE!")
+                raise ValueError(f"[CRITICAL] LOST {volume_diff:,.0f} VOLUME! This will break WMAPE!")
         
-        print("✅ VALIDATION PASSED: No transaction or volume loss detected!")
+        print("[OK] VALIDATION PASSED: No transaction or volume loss detected!")
     
     # Final data type optimization
     enriched_df = _optimize_categorical_columns(enriched_df)

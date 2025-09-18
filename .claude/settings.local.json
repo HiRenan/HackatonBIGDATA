@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(py:*)",
+      "Bash(winget search:*)",
+      "Bash(curl:*)",
+      "Bash(./python-3.10.11-amd64.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0)",
+      "Bash(find:*)",
+      "Bash(rm:*)",
+      "Bash(xargs:*)",
+      "Bash(cat:*)",
+      "Bash(sed:*)",
+      "Bash(git reset:*)",
+      "Bash(grep:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

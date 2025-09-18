@@ -95,28 +95,33 @@ result = pipeline.execute_submission_pipeline(
 ## 🎯 Estratégias de Submissão
 
 ### 1. Baseline Strategy
+
 - **Modelo**: Prophet para padrões sazonais
 - **Risco**: Baixo
 - **Uso**: Submissão inicial rápida
 
 ### 2. Single Model Strategy
+
 - **Modelo**: LightGBM otimizado
 - **Risco**: Médio
 - **Uso**: Modelo principal de produção
 
 ### 3. Ensemble Strategy
+
 - **Modelos**: LightGBM + Prophet + Tree Ensemble
 - **Método**: Stacking com meta-learner
 - **Risco**: Médio
 - **Uso**: Melhoria de performance
 
 ### 4. Optimized Ensemble Strategy
+
 - **Modelos**: Múltiplos algoritmos
 - **Otimização**: Optuna/Grid Search
 - **Risco**: Alto
 - **Uso**: Máxima performance
 
 ### 5. Final Strategy
+
 - **Abordagem**: Ensemble de todas as estratégias anteriores
 - **Otimização**: Final optimization
 - **Risco**: Alto
@@ -127,16 +132,19 @@ result = pipeline.execute_submission_pipeline(
 ### Tipos de Risco Avaliados
 
 1. **Overfitting Risk**
+
    - Gap entre treino e validação
    - Thresholds configuráveis
    - Recomendações automáticas
 
 2. **Complexity Risk**
+
    - Número de features
    - Profundidade do modelo
    - Tempo de treinamento
 
 3. **Leakage Risk**
+
    - Scores suspeitosamente altos
    - Validação de dados
 
@@ -293,11 +301,13 @@ competitive_analysis:
 ### Problemas Comuns
 
 1. **Submissão Bloqueada por Alto Risco**
+
    - Verifique overfitting gap
    - Reduza complexidade do modelo
    - Ajuste thresholds de risco
 
 2. **Erro na Análise Competitiva**
+
    - Verifique formato do leaderboard
    - Confirme nome da equipe
    - Valide dados de score

@@ -57,18 +57,17 @@ def check_python_version():
 
     # Recommended versions
     if current_version >= (3, 13):
-        print("⚠️  WARNING: Python 3.13+ detected!")
-        print("   Some dependencies may not be compatible yet.")
-        print("   Recommended: Python 3.10 or 3.11")
-        return False
+        print("GOOD: Python 3.13+ detected - using optimized packages")
+        print("   Using pre-compiled wheels for better compatibility")
+        return True
     elif current_version >= (3, 10) and current_version < (3, 12):
-        print("✅ EXCELLENT: Python version is optimal for this project")
+        print("EXCELLENT: Python version is optimal for this project")
         return True
     elif current_version >= (3, 8):
-        print("✅ GOOD: Python version should work")
+        print("GOOD: Python version should work")
         return True
     else:
-        print("❌ ERROR: Python 3.8+ required")
+        print("ERROR: Python 3.8+ required")
         return False
 
 def create_conda_env():
@@ -84,7 +83,7 @@ def create_conda_env():
         print("Conda detected. Creating optimized environment...")
 
         # Create environment with Python 3.10 for maximum compatibility
-        print("📌 Using Python 3.10 for maximum compatibility")
+        print("Using Python 3.10 for maximum compatibility")
         create_cmd = [
             'conda', 'create', '-n', env_name,
             'python=3.10', '-y'
@@ -101,7 +100,7 @@ def create_conda_env():
 
         print(f"Environment '{env_name}' created successfully!")
         print(f"Activate with: conda activate {env_name}")
-        print("📝 Note: This creates a Python 3.10 environment for compatibility")
+        print("Note: This creates a Python 3.10 environment for compatibility")
 
         return True
 
@@ -118,6 +117,7 @@ def install_requirements():
     requirements_files = {
         'core': Path("requirements.txt"),
         'py310': Path("requirements-py310.txt"),
+        'py313': Path("requirements-py313.txt"),
         'optional': Path("requirements-optional.txt"),
         'dev': Path("requirements-dev.txt")
     }
@@ -132,24 +132,37 @@ def install_requirements():
                       check=True)
 
         # Choose requirements file based on Python version
-        if current_version >= (3, 10) and current_version < (3, 11) and requirements_files['py310'].exists():
-            print("📌 Using Python 3.10 specific requirements for maximum compatibility")
+        if current_version >= (3, 13) and requirements_files['py313'].exists():
+            print("Using Python 3.13 specific requirements with pre-compiled wheels")
+            requirements_file = requirements_files['py313']
+        elif current_version >= (3, 10) and current_version < (3, 11) and requirements_files['py310'].exists():
+            print("Using Python 3.10 specific requirements for maximum compatibility")
             requirements_file = requirements_files['py310']
         elif requirements_files['core'].exists():
-            print("📌 Using flexible core requirements")
+            print("Using flexible core requirements")
             requirements_file = requirements_files['core']
         else:
             print("ERROR: No requirements.txt found!")
             return False
 
-        # Install core requirements
+        # Install core requirements with optimizations
         print(f"Installing {requirements_file.name}...")
-        subprocess.run([sys.executable, '-m', 'pip', 'install', '-r', str(requirements_file)],
-                      check=True)
+        pip_args = [sys.executable, '-m', 'pip', 'install', '-r', str(requirements_file),
+                   '--prefer-binary']
+
+        # Check if packages are already installed to avoid unnecessary reinstall
+        try:
+            import pandas, numpy, pyarrow, lightgbm, sklearn, mlflow
+            print("Core packages already installed, skipping installation...")
+            return True
+        except ImportError:
+            pass
+
+        subprocess.run(pip_args, check=True)
 
         # Ask about optional dependencies
         if requirements_files['optional'].exists():
-            print("\n🔧 Optional dependencies available (PyTorch, TensorFlow, advanced features)")
+            print("\nOptional dependencies available (PyTorch, TensorFlow, advanced features)")
             install_optional = input("Install optional dependencies? (y/N): ").lower() == 'y'
             if install_optional:
                 print("Installing optional requirements...")
@@ -160,8 +173,8 @@ def install_requirements():
         return True
 
     except subprocess.CalledProcessError as e:
-        print(f"❌ ERROR installing requirements: {e}")
-        print("\n🛠️  TROUBLESHOOTING TIPS:")
+        print(f"ERROR installing requirements: {e}")
+        print("\nTROUBLESHOOTING TIPS:")
         print("1. Try using Python 3.10 instead of 3.13")
         print("2. Create a fresh virtual environment")
         print("3. Use conda instead: conda create -n env_name python=3.10")
@@ -234,11 +247,11 @@ def verify_installation():
                 module = __import__(package)
                 version = getattr(module, '__version__', 'unknown')
             
-            print(f"✓ {package}: {version}")
+            print(f"+ {package}: {version}")
             success_count += 1
             
         except ImportError:
-            print(f"✗ {package}: NOT INSTALLED")
+            print(f"- {package}: NOT INSTALLED")
     
     print(f"\nVerification: {success_count}/{len(critical_packages)} packages working")
     return success_count == len(critical_packages)
@@ -262,11 +275,11 @@ def main():
             sys.exit(1)
 
     if not python_ok:
-        print("\n⚠️  Python version warning detected!")
+        print("\nPython version warning detected!")
         print("   Recommendation: Use Python 3.10 for best compatibility")
         response = input("Continue with current Python version? (y/N): ")
         if response.lower() != 'y':
-            print("\n💡 To install Python 3.10:")
+            print("\nTo install Python 3.10:")
             print("   • With pyenv: pyenv install 3.10.12 && pyenv local 3.10.12")
             print("   • With conda: conda create -n hackathon python=3.10")
             print("   • Download from: https://www.python.org/downloads/release/python-31012/")
@@ -286,27 +299,28 @@ def main():
 
     print("\nSETUP SUMMARY")
     print("=" * 50)
-    print(f"Python Version: {'✓' if python_ok else '⚠'}")
-    print(f"System Requirements: {'✓' if sys_info['meets_requirements'] else '⚠'}")
-    print(f"Conda Environment: {'✓' if conda_success else '✗'}")
-    print(f"Pip Installation: {'✓' if pip_success else '✗'}")
-    print(f"Package Verification: {'✓' if verification_success else '✗'}")
+    print(f"Python Version: {'OK' if python_ok else 'WARN'}")
+    print(f"System Requirements: {'OK' if sys_info['meets_requirements'] else 'WARN'}")
+    print(f"Conda Environment: {'OK' if conda_success else 'FAIL'}")
+    print(f"Pip Installation: {'OK' if pip_success else 'FAIL'}")
+    print(f"Package Verification: {'OK' if verification_success else 'FAIL'}")
 
     if pip_success and verification_success:
-        print("\n🎉 SETUP COMPLETE! Ready for development!")
+        print("\nSETUP COMPLETE! Ready for development!")
         print("\nNext steps:")
         if conda_success:
             print("1. conda activate hackathon_forecast_2025")
         print("2. jupyter lab (to start development)")
         print("3. Run notebooks for analysis")
-        print("\n📋 Available requirements:")
+        print("\nAvailable requirements:")
         print("   • requirements.txt - Core dependencies")
         print("   • requirements-py310.txt - Python 3.10 tested versions")
+        print("   • requirements-py313.txt - Python 3.13 tested versions")
         print("   • requirements-optional.txt - Advanced features")
         print("   • requirements-dev.txt - Development tools")
     else:
-        print("\n❌ Setup incomplete. Check errors above.")
-        print("\n🆘 Need help? Check the troubleshooting section in README.md")
+        print("\nSetup incomplete. Check errors above.")
+        print("\nNeed help? Check the troubleshooting section in README.md")
 
 if __name__ == "__main__":
     main()

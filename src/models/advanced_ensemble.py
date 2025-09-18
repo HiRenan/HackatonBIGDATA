@@ -13,7 +13,7 @@ Features:
 - Confidence-calibrated ensemble decisions
 - Cross-validation based meta-feature generation
 
-The ENSEMBLE MASTER that orchestrates all models intelligently! 🎯
+The ENSEMBLE MASTER that orchestrates all models intelligently!
 """
 
 import numpy as np
@@ -969,7 +969,7 @@ class AdvancedEnsembleOrchestrator:
 def main():
     """Demonstration of Advanced Ensemble System"""
     
-    print("🎯 ADVANCED ENSEMBLE SYSTEM - ULTIMATE DEMONSTRATION")
+    print("ADVANCED ENSEMBLE SYSTEM - ULTIMATE DEMONSTRATION")
     print("=" * 80)
     
     try:
@@ -1118,7 +1118,7 @@ def main():
         saved_files = ensemble_orchestrator.save_ensemble()
         
         print("\n" + "=" * 80)
-        print("🎉 ADVANCED ENSEMBLE SYSTEM DEMONSTRATION COMPLETED!")
+        print("ADVANCED ENSEMBLE SYSTEM DEMONSTRATION COMPLETED!")
         print("=" * 80)
         
         print("Ensemble Performance Summary:")
@@ -1143,4 +1143,12 @@ def main():
         return None, None, None
 
 if __name__ == "__main__":
+    # Configure encoding for Windows
+    import os
+    if os.name == 'nt':  # Windows
+        try:
+            os.system('chcp 65001 > nul 2>&1')
+        except:
+            pass
+
     results = main()

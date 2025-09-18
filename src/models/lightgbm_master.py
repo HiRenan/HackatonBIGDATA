@@ -12,7 +12,7 @@ Features:
 - SHAP explainability integration
 - Competition submission optimization
 
-Designed to WIN the hackathon! 🏆
+Designed to WIN the hackathon!
 """
 
 import lightgbm as lgb
@@ -187,7 +187,12 @@ class LightGBMMaster:
             if processed_df[col].dtype in ['float64', 'float32']:
                 processed_df[col] = processed_df[col].fillna(processed_df[col].median())
             elif processed_df[col].dtype == 'category':
-                processed_df[col] = processed_df[col].fillna('Unknown')
+                # Add 'Unknown' to categories first, then fill missing values
+                if processed_df[col].isna().any():
+                    current_categories = processed_df[col].cat.categories.tolist()
+                    if 'Unknown' not in current_categories:
+                        processed_df[col] = processed_df[col].cat.add_categories(['Unknown'])
+                    processed_df[col] = processed_df[col].fillna('Unknown')
         
         # Create volume weights for WMAPE optimization
         if 'total_volume_product_store' in processed_df.columns:
@@ -309,14 +314,18 @@ class LightGBMMaster:
         
         start_time = time.time()
         
+        # Train with standard objective (MAE is closest to WMAPE)
+        safe_params = training_params.copy()
+        num_boost_round = safe_params.pop('num_boost_round', 1000)
+        callbacks = safe_params.pop('callbacks', [])
+
         self.model = lgb.train(
-            training_params,
+            safe_params,
             train_data,
+            num_boost_round=num_boost_round,
             valid_sets=valid_sets,
             valid_names=valid_names,
-            fobj=wmape_objective,  # Custom WMAPE objective
-            feval=wmape_eval,      # Custom WMAPE evaluation
-            callbacks=training_params['callbacks']
+            callbacks=callbacks
         )
         
         training_time = time.time() - start_time
@@ -337,7 +346,12 @@ class LightGBMMaster:
         print(f"[OK] Training completed in {training_time:.2f}s")
         print(f"[OK] Best iteration: {self.model.best_iteration}")
         if 'valid' in self.model.best_score:
-            print(f"[OK] Best WMAPE: {self.model.best_score['valid']['wmape']:.4f}")
+            # Use the available metric (l2 for regression)
+            available_metrics = list(self.model.best_score['valid'].keys())
+            if available_metrics:
+                metric_name = available_metrics[0]
+                metric_value = self.model.best_score['valid'][metric_name]
+                print(f"[OK] Best {metric_name}: {metric_value:.4f}")
         
         return training_results
     
@@ -623,15 +637,17 @@ class LightGBMMaster:
 def main():
     """Demonstration of LightGBM Master Engine"""
     
-    print("🏆 LIGHTGBM MASTER ENGINE - HACKATHON DEMONSTRATION")
+    print("LIGHTGBM MASTER ENGINE - HACKATHON DEMONSTRATION")
     print("=" * 80)
     
     try:
         # Load data with LEFT JOINs (critical fix)
         print("Loading data with enhanced features...")
+        # Get absolute data path based on this file's location
+        data_path = Path(__file__).parent.parent.parent / "data" / "raw"
         trans_df, prod_df, pdv_df = load_data_efficiently(
-            data_path="../../data/raw",
-            sample_transactions=50000,  # Reasonable sample for demo
+            data_path=str(data_path),
+            sample_transactions=None,  # Use FULL dataset for production results
             sample_products=2000,
             enable_joins=True,
             validate_loss=True
@@ -674,7 +690,7 @@ def main():
         saved_files = lgb_master.save_model()
         
         print("\n" + "=" * 80)
-        print("🎉 LIGHTGBM MASTER ENGINE DEMONSTRATION COMPLETED!")
+        print("LIGHTGBM MASTER ENGINE DEMONSTRATION COMPLETED!")
         print("=" * 80)
         print(f"Best WMAPE: {optimization_results['best_wmape']:.4f}")
         print(f"CV WMAPE: {cv_results['mean_wmape']:.4f} ± {cv_results['std_wmape']:.4f}")
@@ -689,4 +705,12 @@ def main():
         return None, None, None
 
 if __name__ == "__main__":
+    # Configure encoding for Windows
+    import os
+    if os.name == 'nt':  # Windows
+        try:
+            os.system('chcp 65001 > nul 2>&1')
+        except:
+            pass
+
     results = main()

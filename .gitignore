@@ -86,6 +86,24 @@ tmp/
 *.bak
 *.old
 
+# Test submission files
+test_submission_*.csv
+
+# Validation reports
+validation_report*.json
+
+# Temporary hackathon files
+hackathon_*.py
+!generate_hackathon_final_perfect.py
+analyze_*.py
+!analyze_real_data.py
+*_mapping.json
+*_analysis_results.txt
+submission_analysis_*.txt
+quick_benchmark*.py
+test_hackathon_*.py
+final_analysis_*.md
+
 # IDE specific
 *.swp
 *.swo
